@@ -1,29 +1,48 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useCallback } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator, BottomTabBar } from '@react-navigation/bottom-tabs';
-import Login from './screen/Login';
-import Report from './screen/Report';
-import ReportList from './screen/ReportList';
-import Home from './screen/Home';
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import TopTabNavigation from './TopTabNavigation'
+import { NavigationContainer } from '@react-navigation/native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Setting from './screen/Setting';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
-import TopTabNavigation from './Navigators.js/TopTabNavigation';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import BottomTabNavigation from './Navigators.js/BottomTabNavigation';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
-const TabTop = createMaterialTopTabNavigator();
-
-export default function App() {
-
+function Home() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    </View>
+  )
+}
+
+function Report() {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>Report</Text>
+    </View>
+  )
+}
+
+function ReportList() {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>ReportList</Text>
+    </View>
+  )
+}
+
+function Setting() {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>Setting</Text>
+    </View>
+  )
+}
+
+const Tab = createBottomTabNavigator();
+
+function MyTabs() {
+  return (
+    <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
 
@@ -48,22 +67,11 @@ export default function App() {
         <Tab.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
 
       </Tab.Navigator>
+      )
+        }
 
-
-
-
-    </NavigationContainer>
- 
-  );
+      export default function BottomTabNavigation() {
+  return (
+        <MyTabs />
+      )
 }
-
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});
