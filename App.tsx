@@ -25,7 +25,14 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="Home" component={BottomTabNavigation} options={{ headerShown: false }} />
+        <Stack.Screen name="Report" component={Report} options={{ headerShown: false }} />
+        <Stack.Screen name="Report List" component={ReportList} options={{ headerShown: false }} />
+        <Stack.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
+      </Stack.Navigator>
+      {/* <Tab.Navigator
         
         screenOptions={({ route }) => ({
           
@@ -53,7 +60,7 @@ export default function App() {
         <Tab.Screen name="Report List" component={ReportList} options={{ headerShown: false }} />
         <Tab.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
 
-      </Tab.Navigator>
+      </Tab.Navigator> */}
 
 
 
