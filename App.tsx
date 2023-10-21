@@ -16,6 +16,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import TopTabNavigation from './Navigators.js/TopTabNavigation';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import BottomTabNavigation from './Navigators.js/BottomTabNavigation';
+import { AppContextProvider } from './ultil/AppContext';
+import AppNavigator from './ultil/AppNavigator';
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -24,48 +27,54 @@ const TabTop = createMaterialTopTabNavigator();
 export default function App() {
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-        <Stack.Screen name="Home" component={BottomTabNavigation} options={{ headerShown: false }} />
-        <Stack.Screen name="Report" component={Report} options={{ headerShown: false }} />
-        <Stack.Screen name="Report List" component={ReportList} options={{ headerShown: false }} />
-        <Stack.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
-      </Stack.Navigator>
-      {/* <Tab.Navigator
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName="Home">
+    //     <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+    //     <Stack.Screen name="Home" component={BottomTabNavigation} options={{ headerShown: false }} />
+    //     <Stack.Screen name="Report" component={Report} options={{ headerShown: false }} />
+    //     <Stack.Screen name="Report List" component={ReportList} options={{ headerShown: false }} />
+    //     <Stack.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
+    //   </Stack.Navigator>
+    //   {/* <Tab.Navigator
         
-        screenOptions={({ route }) => ({
+    //     screenOptions={({ route }) => ({
           
-          tabBarIcon: ({ focused, color, size }) => {
+    //       tabBarIcon: ({ focused, color, size }) => {
 
-            if (route.name === 'Home') {
-              return <Ionicons name="home" size={size} color={color} />;
-            } else if (route.name === 'Report') {
-              return <Ionicons name="reload" size={size} color={color} />;
-            } else if (route.name === 'Report List') {
-              return <Ionicons name="call-outline" size={size} color={color} />;
-            } else if (route.name === 'Setting') {
-              return <AntDesign name="setting" size={size} color={color} />;
-            }
+    //         if (route.name === 'Home') {
+    //           return <Ionicons name="home" size={size} color={color} />;
+    //         } else if (route.name === 'Report') {
+    //           return <Ionicons name="reload" size={size} color={color} />;
+    //         } else if (route.name === 'Report List') {
+    //           return <Ionicons name="call-outline" size={size} color={color} />;
+    //         } else if (route.name === 'Setting') {
+    //           return <AntDesign name="setting" size={size} color={color} />;
+    //         }
 
-          },
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'gray',
-          title : '',
-          tabBarStyle : {padding : 10}
-        })}
-      >
-        <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
-        <Tab.Screen name="Report" component={Report} options={{ headerShown: false }} />
-        <Tab.Screen name="Report List" component={ReportList} options={{ headerShown: false }} />
-        <Tab.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
+    //       },
+    //       tabBarActiveTintColor: 'tomato',
+    //       tabBarInactiveTintColor: 'gray',
+    //       title : '',
+    //       tabBarStyle : {padding : 10}
+    //     })}
+    //   >
+    //     <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
+    //     <Tab.Screen name="Report" component={Report} options={{ headerShown: false }} />
+    //     <Tab.Screen name="Report List" component={ReportList} options={{ headerShown: false }} />
+    //     <Tab.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
 
-      </Tab.Navigator> */}
-
-
+    //   </Tab.Navigator> */}
 
 
-    </NavigationContainer>
+
+
+    // </NavigationContainer>
+    <AppContextProvider>
+    <NavigationContainer>
+      <AppNavigator/>
+    </NavigationContainer>  
+
+  </AppContextProvider>
  
   );
 }

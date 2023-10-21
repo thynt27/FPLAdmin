@@ -1,13 +1,45 @@
-import { StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity, TextInput } from 'react-native'
-import React, { useState, useMemo } from 'react'
+import { StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity, TextInput, ToastAndroid } from 'react-native'
+import React, { useState, useMemo, useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Dropdown } from 'react-native-element-dropdown';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import RadioGroup from 'react-native-radio-buttons-group';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AxiosIntance from '../ultil/AxiosIntance';
+import { AppContext } from '../ultil/AppContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const Login = () => {
+const Login = (props) => {
+  const [emailuser, setemailuser] = useState("");
+  const [passwuser, setpasswuser] = useState("");
+  const {navigation} =props;
+  const {setisLogin,setinforuser} = useContext(AppContext);
+  const loginFPl = async () =>{
+    try {
+      const response=await AxiosIntance().post("/user/login",{email:emailuser,password:passwuser});
+      if(response.error==false)
+      {
+        console.log("user",response.data.user);
+        console.log("token",response.data.token);
+        
+        await AsyncStorage.setItem("token",response.data.token);
+        ToastAndroid.show("Đăng nhập thành công ",ToastAndroid.SHORT);
+        setisLogin(true);
+        setinforuser(response.data.user);
+  
+      }else
+      {
+        ToastAndroid.show("Đăng nhập thất bại",ToastAndroid.SHORT);
+        console.log("aaaa");
+      }
+      
+    } catch (e) {
+      console.log(e);
+      
+    }
+    
+  }
   const data =
     [{ label: 'FPT Polytechnic Hà Nội', value: '1' },
     { label: 'FPT Polytechnic Hồ Chí Minh', value: '2' },
@@ -47,7 +79,7 @@ const Login = () => {
 
         <Image style={{ resizeMode: 'contain', justifyContent: 'center', height: 100, width: 200, alignSelf: 'center', top: -80 }} source={require('../assets/img/logofpt.png')} />
 
-        <TextInput style={styles.input} placeholder='Email'  >
+        <TextInput style={styles.input} placeholder='Email'  onChangeText={setemailuser} value={emailuser} >
 
         </TextInput>
 
@@ -55,7 +87,7 @@ const Login = () => {
           style={[styles.border, { flexDirection: "row" }]}
         >
 
-          <TextInput
+          <TextInput onChangeText={setpasswuser} value={passwuser}
             placeholder="Password"
             secureTextEntry={isSecureEntry}
             style={{ flex: 1, height : 100 }}
@@ -98,7 +130,7 @@ const Login = () => {
           containerStyle={{ flexDirection: 'row', top: -40, justifyContent: "space-evenly" }}
         />
 
-        <TouchableOpacity style={[styles.login, { flexDirection: 'row', backgroundColor: "#fda600" }]} >
+        <TouchableOpacity style={[styles.login, { flexDirection: 'row', backgroundColor: "#fda600" }]} onPress={loginFPl} >
           <Text style={{ color: '#fff', fontWeight: 'bold' }}>Đăng nhập</Text>
         </TouchableOpacity>
 
