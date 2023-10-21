@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React,{useState,useEffect} from 'react'
+import AxiosIntance from "../ultil/AxiosIntance";
 
 const NewIncident = () => {
+  const [dataNe, setdataNe] = useState([]);
   const data = [
     {
       index: "1",
@@ -55,12 +57,28 @@ const NewIncident = () => {
 
    
   ];
+    
+  useEffect(() => {
+    const getReportList = async () => {
+      const response = await AxiosIntance().get("/report/get-all");
+      console.log(response.reports);
+      if (response.result) {
+        setdataNe(response.reports)
+      } else {
+        ToastAndroid.show("Lấy data thất bại")
+      }
+    }
+    getReportList();
+    return () => {
+    }
+  }, [])
+
 
   const renderItem = ({ item, index }) => {
     return (
       <View style={[styles.item, { left : 5 ,top: 10, height: 90, width: 350, marginRight: 10, backgroundColor: "#fff", borderWidth: 0.5, borderColor: "#000", elevation: 5 }]}>
         <View style = {{top : 15}}>
-          <Text style={{ fontWeight: "700", fontSize: 17, flexWrap: 'wrap', width: 200}}>{item.incedentCategory}</Text>
+          <Text style={{ fontWeight: "700", fontSize: 17, flexWrap: 'wrap', width: 200}}>{item.incident.name_incident}</Text>
           <View style={{ flexDirection: 'row' }}>
             <Text style={{ fontWeight: "700", fontSize: 15}}>Phòng: </Text>
             <Text style={{ fontWeight: "700", fontSize: 15, fontWeight: "700" }}>{item.room}</Text>
@@ -68,7 +86,7 @@ const NewIncident = () => {
 
           <View style={{ flexDirection: 'row'}}>
             <Text style={{  fontWeight: "700",fontSize: 15 }}>Yêu cầu lúc: </Text>
-            <Text style={{ fontWeight: "700",fontSize: 15 }}>{item.reportTime}</Text>
+            <Text style={{ fontWeight: "700",fontSize: 15 }}>{item.date}</Text>
 
           </View>
 
@@ -90,9 +108,9 @@ const NewIncident = () => {
     <View style={styles.container}>
       <FlatList
         style={styles.flatList}
-        data={data}
+        data={dataNe}
         renderItem={renderItem}
-        keyExtractor={item => `key-${item.index}`}
+        keyExtractor={item => item._id}
       />
     </View >
   )
