@@ -68,7 +68,7 @@ export default function App() {
 
 
 
-    // </NavigationContainer>
+    //  </NavigationContainer>
     <AppContextProvider>
     <NavigationContainer>
       <AppNavigator/>

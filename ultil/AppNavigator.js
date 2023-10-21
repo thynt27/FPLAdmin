@@ -30,15 +30,15 @@ const Main = () => {
             if (route.name === 'Home') {
               return <AntDesign name='home' size={size} color={color}   />;
             } else if (route.name === 'Report') {
-              return <AntDesign name="setting" size={size} color={color} />;
+              return <AntDesign name="form" size={size} color={color} />;
             } else if (route.name === 'Report List') {
-              return <AntDesign name="setting" size={size} color={color} />;
+              return <AntDesign name="filetext1" size={size} color={color} />;
             } else if (route.name === 'Setting') {
               return <AntDesign name="setting" size={size} color={color} />;
             }
 
           },
-          tabBarActiveTintColor: 'tomato',
+          tabBarActiveTintColor: '#4287f5',
           tabBarInactiveTintColor: 'gray',
         })}
       >
@@ -56,8 +56,8 @@ const AppNavigator = () => {
   return (
     <>
     {
-      isLogin==false?<Users/>:<Main/>
-
+      // isLogin==false?<Users/>:<Main/>
+        <Main/>
     }
     </>
   )
