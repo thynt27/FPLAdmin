@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, ToastAndroid, Alert } from 'react-native'
+import React, { useState, useEffect } from 'react'
 import { Dropdown } from 'react-native-element-dropdown';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { PermissionsAndroid } from 'react-native';
 import ImageView from 'react-native-image-view';
 import { useNavigation } from '@react-navigation/native'
 import BottomTabNavigation from '../Navigators.js/BottomTabNavigation';
+import AxiosIntance from "../ultil/AxiosIntance";
 
 const Report = () => {
   const data =
@@ -17,12 +18,27 @@ const Report = () => {
     ]
 
   const navigation = useNavigation();
-
+  const [dataNe, setdataNe] = useState([]);
   const [imageSource, setImageSource] = useState(null);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState("");
   const [isFocus, setIsFocus] = useState(false);
+  const [room, setRoom] = useState("");
+  const [description, setDescription] = useState("")
 
-
+  useEffect(() => {
+    const getIncidentList = async () => {
+      const response = await AxiosIntance().get("/incident/get-all");
+      console.log(response.incidents);
+      if (response.result) {
+        setdataNe(response.incidents)
+      } else {
+        ToastAndroid.show("Lấy data thất bại")
+      }
+    }
+    getIncidentList();
+    return () => {
+    }
+  }, []) 
 
 
   const handleImage = () => {
@@ -54,14 +70,24 @@ const Report = () => {
       maxWidth: 200,
     };
     const result = await launchImageLibrary(options);
-
-
-    if (result?.assets) {
-      console.log(result.assets);
-      setImageSource(result.assets[0].uri);
-      return
-
+    console.log(result.assets[0].uri);
+    const formdata = new FormData();
+    formdata.append('image', {
+      uri: result.assets[0].uri,
+      type: 'image/jpeg',
+      name: 'image.jpg',
+    });
+    const response = await AxiosIntance("multipart/form-data").post('/report/upload-image', formdata);
+    console.log(response.link);
+    if (response.result) {
+      setImageSource(response.link);
+      ToastAndroid.show("Upload ảnh thành công", ToastAndroid.SHORT);
     }
+    else {
+      ToastAndroid.show("Upload ảnh thất bại", ToastAndroid.SHORT);
+    }
+
+
   }
 
 
@@ -87,12 +113,23 @@ const Report = () => {
         }
 
         const result = await launchCamera(options);
-        console.log(result);
-        if (result?.assets) {
+        console.log(result.assets[0].uri);
+        const formdata = new FormData();
+        formdata.append('image', {
+          uri: result.assets[0].uri,
+          type: 'icon/icon_jpeg',
+          name: 'image.jpg',
 
-          setImageSource(result.assets[0].uri);
-          return
 
+        });
+        const response = await AxiosIntance("multipart/form-data").post('/report/upload-image', formdata);
+        console.log(response.link);
+        if (response.result) {
+          setImageSource(response.link);
+          ToastAndroid.show("Upload ảnh thành công", ToastAndroid.SHORT);
+        }
+        else {
+          ToastAndroid.show("Upload ảnh thất bại", ToastAndroid.SHORT);
         }
       } else {
         console.log("Camera permission denied");
@@ -102,6 +139,15 @@ const Report = () => {
     }
 
 
+  }
+  const addReport = async () => {
+    const response = await AxiosIntance().post("/report/add-new", { room: room, description: description, image: imageSource, name_incident:value });
+    if (response.result) {
+      ToastAndroid.show("Đăng tin thành công", ToastAndroid.SHORT);
+    }
+    else {
+      ToastAndroid.show("Đăng tin thất bại! Hãy thử lại?", ToastAndroid.SHORT);
+    }
   }
 
   return (
@@ -120,13 +166,14 @@ const Report = () => {
         placeholder='Phòng'
         keyboardType="default"
         style={styles.input}
+        onChangeText={setRoom}
       />
 
       <Dropdown
         style={styles.input}
-        data={data}
-        labelField="label"
-        valueField="value"
+        data={dataNe}
+        labelField="name_incident"
+        valueField="-id"
         placeholder={!isFocus ? 'Sự cố đang gặp phải ' : 'Sự cố đang gặp phải'}
         value={value}
         onFocus={() => setIsFocus(true)}
@@ -145,22 +192,27 @@ const Report = () => {
           multiline={true}
           underlineColorAndroid="transparent"
           style={styles.textArea}
+          onChangeText={setDescription}
         />
       </View>
 
 
       <Text style={{ top: 40, left: 50, fontWeight: "700", fontSize: 20 }}>Hình ảnh đính kèm</Text>
       <TouchableOpacity onPress={() => handleImage()} >
-        <Image style={{ width: 150, height: 150, left: 50, top: 50 }} source={require('../assets/img/imageRP.png')} />
-        {/* {imageSource && <Image source={{ uri: imageSource}} style={{ width: 150, height: 150, left: 50, top: 50 }} /> } */}
+        {
+          imageSource ?
+            (<Image style={{ width: 150, height: 150, left: 50, top: 50 }} source={{ uri: imageSource }} />)
+            :
+            (<Image style={{ width: 150, height: 150, left: 50, top: 50 }} source={require('../assets/img/imageRP.png')} />)
+        }
 
       </TouchableOpacity>
 
-      <TouchableOpacity style={{ top: 70, left: 50, backgroundColor: '#0e3b65', width: 300, height: 40, borderRadius: 10 }}>
+      <TouchableOpacity style={{ top: 70, left: 50, backgroundColor: '#0e3b65', width: 300, height: 40, borderRadius: 10 }} onPress={addReport}>
         <Text style={{ textAlign: 'center', color: '#fff', padding: 10 }}>Gửi yêu cầu</Text>
       </TouchableOpacity>
 
-     
+
     </View>
   )
 }
