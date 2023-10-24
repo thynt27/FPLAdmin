@@ -3,6 +3,7 @@ import React from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import { useNavigation } from "@react-navigation/native";
 import BottomTabNavigation from '../Navigators.js/BottomTabNavigation';
+
 const Home = () => {
     const navigation = useNavigation();
     const data = [
@@ -143,10 +144,15 @@ const styles = StyleSheet.create({
         top: 50,
     },
 
+    icon :{
+        width : 30,
+        height : 30
+    },
+
     backgroundIcon: {
         top: 10,
-        width: 50,
-        height: 50,
+        width: 45,
+        height: 45,
         borderRadius: 100 / 2,
         justifyContent: "center",
         alignItems: "center",

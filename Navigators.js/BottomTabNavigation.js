@@ -6,13 +6,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+
 const Stack = createNativeStackNavigator();
+
 function Home() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>Report</Text>
     </View>
   )
 }
+
 
 function Report() {
   return (
@@ -47,11 +51,11 @@ function MyTabs() {
           tabBarIcon: ({ focused, color, size }) => {
 
             if (route.name === 'Home') {
-              return <AntDesign name="home" size={size} color={color} />;
+              return <AntDesign name='home' size={size} color={color}   />;
             } else if (route.name === 'Report') {
-              return <AntDesign name="form" size={size} color={color} />;
+              return <AntDesign name="setting" size={size} color={color} />;
             } else if (route.name === 'Report List') {
-              return <AntDesign name="file1" size={size} color={color} />;
+              return <AntDesign name="setting" size={size} color={color} />;
             } else if (route.name === 'Setting') {
               return <AntDesign name="setting" size={size} color={color} />;
             }
@@ -61,7 +65,7 @@ function MyTabs() {
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        <Tab.Screen name="aa" component={Home} options={{ headerShown: false }} />
         <Tab.Screen name="Report" component={Report} options={{ headerShown: false }} />
         <Tab.Screen name="Report List" component={ReportList} options={{ headerShown: false }} />
         <Tab.Screen name="Setting" component={Setting} options={{ headerShown: false }} />

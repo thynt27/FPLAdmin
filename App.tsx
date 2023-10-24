@@ -10,6 +10,8 @@ import Home from './screen/Home';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Setting from './screen/Setting';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 import TopTabNavigation from './Navigators.js/TopTabNavigation';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -23,16 +25,25 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="Home" component={BottomTabNavigation} options={{ headerShown: false }} />
+        <Stack.Screen name="Report" component={Report} options={{ headerShown: false }} />
+        <Stack.Screen name="Report List" component={ReportList} options={{ headerShown: false }} />
+        <Stack.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
+      </Stack.Navigator>
+      {/* <Tab.Navigator
+        
         screenOptions={({ route }) => ({
+          
           tabBarIcon: ({ focused, color, size }) => {
 
             if (route.name === 'Home') {
-              return <AntDesign name="home" size={size} color={color} />;
+              return <Ionicons name="home" size={size} color={color} />;
             } else if (route.name === 'Report') {
-              return <AntDesign name="form" size={size} color={color} />;
+              return <Ionicons name="reload" size={size} color={color} />;
             } else if (route.name === 'Report List') {
-              return <AntDesign name="file1" size={size} color={color} />;
+              return <Ionicons name="call-outline" size={size} color={color} />;
             } else if (route.name === 'Setting') {
               return <AntDesign name="setting" size={size} color={color} />;
             }
@@ -40,6 +51,8 @@ export default function App() {
           },
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',
+          title : '',
+          tabBarStyle : {padding : 10}
         })}
       >
         <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
@@ -47,7 +60,7 @@ export default function App() {
         <Tab.Screen name="Report List" component={ReportList} options={{ headerShown: false }} />
         <Tab.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
 
-      </Tab.Navigator>
+      </Tab.Navigator> */}
 
 
 
