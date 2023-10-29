@@ -3,6 +3,7 @@ import React from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import { useNavigation } from "@react-navigation/native";
 import BottomTabNavigation from '../Navigators.js/BottomTabNavigation';
+import { WINDOW_WIDTH } from '@gorhom/bottom-sheet';
 
 const Home = () => {
     const navigation = useNavigation();
@@ -139,9 +140,10 @@ const styles = StyleSheet.create({
     },
     backgroundOption: {
         borderRadius: 20,
-        width: 100,
-        height: 150,
+        width: 110,
+        height: 135,
         top: 50,
+        paddingHorizontal: 5
     },
 
     icon :{

@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator();
 function Home() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Report</Text>
+      <Text>Home</Text>
     </View>
   )
 }
@@ -47,35 +47,35 @@ const Tab = createBottomTabNavigator();
 function MyTabs() {
   return (
     <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
 
-            if (route.name === 'Home') {
-              return <AntDesign name='home' size={size} color={color}   />;
-            } else if (route.name === 'Report') {
-              return <AntDesign name="setting" size={size} color={color} />;
-            } else if (route.name === 'Report List') {
-              return <AntDesign name="setting" size={size} color={color} />;
-            } else if (route.name === 'Setting') {
-              return <AntDesign name="setting" size={size} color={color} />;
-            }
+          if (route.name === 'Home') {
+            return <AntDesign name='home' size={size} color={color} />;
+          } else if (route.name === 'Report') {
+            return <AntDesign name="setting" size={size} color={color} />;
+          } else if (route.name === 'Report List') {
+            return <AntDesign name="setting" size={size} color={color} />;
+          } else if (route.name === 'Setting') {
+            return <AntDesign name="setting" size={size} color={color} />;
+          }
 
-          },
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'gray',
-        })}
-      >
-        <Tab.Screen name="aa" component={Home} options={{ headerShown: false }} />
-        <Tab.Screen name="Report" component={Report} options={{ headerShown: false }} />
-        <Tab.Screen name="Report List" component={ReportList} options={{ headerShown: false }} />
-        <Tab.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
+        },
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray',
+      })}
+    >
+      <Tab.Screen name="Home2" component={Home} options={{ headerShown: false }} />
+      <Tab.Screen name="Report" component={Report} options={{ headerShown: false }} />
+      <Tab.Screen name="Report List" component={ReportList} options={{ headerShown: false }} />
+      <Tab.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
 
-      </Tab.Navigator>
-      )
-        }
+    </Tab.Navigator>
+  )
+}
 
-      export default function BottomTabNavigation() {
+export default function BottomTabNavigation() {
   return (
-        <MyTabs />
-      )
+    <MyTabs />
+  )
 }

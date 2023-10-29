@@ -17,8 +17,6 @@ const ReportList = () => {
         <Text style={[styles.title]}>Xử lý sự cố</Text>
       </View>
       <TopTabNavigation />
-
-     
     </View>
   )
 }
