@@ -1,8 +1,8 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, ToastAndroid } from 'react-native'
 import { React, useContext, useEffect, useState } from 'react'
 import moment from 'moment';
-import { AppContext } from '../../ultil/AppContext';
 import AxiosIntance from '../../ultil/AxiosIntance';
+import { AppContext } from '../../ultil/AppContext';
 
 const DetailReport = (props) => {
     const { navigation } = props;
@@ -78,7 +78,7 @@ const DetailReport = (props) => {
                         imageSource ?
                             (<Image style={{ width: 150, height: 150 }} source={{ uri: imageSource }} />)
                             :
-                            (<Image style={{ width: 150, height: 150 }} source={require('../assets/img/imageRP.png')} />)
+                            (<Image style={{ width: 150, height: 150 }} source={require('../../assets/img/imageRP.png')} />)
                     }
 
                 </TouchableOpacity>
