@@ -10,13 +10,12 @@ export const AppContextProvider = (props) => {
     const [isLogin, setisLogin] = useState(false);
     const [inforuser, setinforuser] = useState({});
     const [userRole, setUserRole] = useState(null);
+    const [number, setnumber] = useState(0)
 
     return (
 
-        <AppContext.Provider value={{ isLogin, setisLogin, inforuser, setinforuser, number, setnumber }}>
+        <AppContext.Provider value={{ isLogin, setisLogin, inforuser, setinforuser, number, userRole , setUserRole, setnumber }}>
             {children}
-            const [inforuser, setinforuser] = useState({ })
-            const [number, setnumber] = useState(0)
         </AppContext.Provider>
     )
 }

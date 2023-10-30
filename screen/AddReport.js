@@ -21,10 +21,6 @@ const AddReport = () => {
         setModalVisible(!isModalVisible);
     };
 
-    //modal notice
-    const toggleSuccessModal = () => {
-        setSuccessModalVisible(!isSuccessModalVisible);
-    };
 
     //api
     useEffect(() => {
@@ -37,6 +33,7 @@ const AddReport = () => {
         return () => {
         }
     }, []);
+
 
     // Chụp ảnh
     const requestCameraPermission = async () => {
@@ -66,6 +63,8 @@ const AddReport = () => {
         }
     };
 
+
+
     // Chọn ảnh từ thư viện
     const chooseImage = () => {
         const options = {
@@ -84,6 +83,17 @@ const AddReport = () => {
             }
         });
     };
+
+    const addReport = async () => {
+        //modal notice
+        setSuccessModalVisible(!isSuccessModalVisible);
+        const response = await AxiosIntance().post("/report/add-new", {
+            id_incident: value,
+            description: "test",
+            image: image
+        });
+        console.log(response);
+    }
 
     return (
         <View style={{ backgroundColor: 'white', flex: 1 }}>
@@ -121,11 +131,11 @@ const AddReport = () => {
                         setIsFocus(false);
                     }}>
                 </Dropdown>
-                <TextInput style={[styles.input,{height: 130, textAlignVertical: 'top'}]}
+                <TextInput style={[styles.input, { height: 130, textAlignVertical: 'top' }]}
                     placeholder='Mô tả'
                 >
                 </TextInput>
-                <Text style={[styles.text18,{ marginTop: 20}]}>Hình ảnh đính kèm</Text>
+                <Text style={[styles.text18, { marginTop: 20 }]}>Hình ảnh đính kèm</Text>
                 <TouchableOpacity onPress={() => toggleModal()}>
                     <View style={{ width: 100, height: 100, backgroundColor: '#D9D9D9', justifyContent: 'center', alignItems: 'center', marginTop: 10 }}>
                         {image ? (
@@ -138,7 +148,7 @@ const AddReport = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={{ width: '90%', height: 45, backgroundColor: '#4287f5', borderRadius: 8, justifyContent: 'center', alignItems: 'center', marginTop: 50 }}
-                    onPress={() => toggleSuccessModal()}>
+                    onPress={() => addReport()}>
                     <Text style={{ fontSize: 18, color: 'white', fontWeight: '500' }}>Gửi yêu cầu</Text>
                 </TouchableOpacity>
             </View>
@@ -155,7 +165,7 @@ const AddReport = () => {
                     <TouchableOpacity
                         style={{ marginTop: 10, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 0.6, width: '100%' }}
                         onPress={() => requestCameraPermission()}>
-                        <Text style={[styles.text20,{ color: '#4287f5' }]}>Chụp ảnh</Text>
+                        <Text style={[styles.text20, { color: '#4287f5' }]}>Chụp ảnh</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}
                         onPress={() => chooseImage()}>
@@ -188,35 +198,35 @@ const AddReport = () => {
 export default AddReport
 
 const styles = StyleSheet.create({
-    text16:{
+    text16: {
         fontSize: 16,
-        color: 'white', 
+        color: 'white',
         fontWeight: '500'
     },
-    text18:{
+    text18: {
         fontSize: 22,
         color: 'black',
-        fontWeight: '500' 
+        fontWeight: '500'
     },
-    text20:{
-        marginTop: 15, 
-        fontSize: 20, 
-        color: '#21833C', 
-        fontWeight: '500' 
+    text20: {
+        marginTop: 15,
+        fontSize: 20,
+        color: '#21833C',
+        fontWeight: '500'
     },
-    text22:{
+    text22: {
         fontSize: 22,
         color: 'black',
-        fontWeight: '500' 
+        fontWeight: '500'
     },
-    topNav:{
+    topNav: {
         width: '100%',
         height: 50,
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 20
     },
-    input:{
+    input: {
         width: '95%',
         height: 45, borderWidth: 0.5,
         borderRadius: 8,
