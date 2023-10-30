@@ -33,7 +33,7 @@ const DetailReport = (props) => {
             if (response.result === true) {
                 //lấy dữ liệu thành công
                 setData(response.report);
-                setImageSource(response.image);
+                setImageSource(response.report.image);
 
               } else {
                 ToastAndroid.show("Lấy dữ liệu thất bại", ToastAndroid.SHORT);

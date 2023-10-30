@@ -13,6 +13,8 @@ import Student from '../screen/Student';
 import Home from '../screen/Home';
 import DetailReport from '../screen/DetailReport';
 import InProgress from '../screen/InProgress';
+import Report from '../screen/Report';
+import HomeGV from '../screen/HomeGV';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const NewsDetail=()=>{
@@ -55,7 +57,7 @@ const Main = () => {
       })}
     >
 
-      <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
+      <Tab.Screen name="Home" component={HomeGV} options={{ headerShown: false }} />
       {/* <Tab.Screen name="Report" component={AddReport} options={{ headerShown: false }} /> */}
       <Tab.Screen name="Report List" component={NewsDetail} options={{ headerShown: false }} />
       <Tab.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
