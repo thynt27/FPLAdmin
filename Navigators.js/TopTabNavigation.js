@@ -4,9 +4,9 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 
-import NewIncident from '../screen/NewIncident';
-import InProgress from '../screen/InProgress';
-import Success from '../screen/Success';
+import NewIncident from '../screen/IT/NewIncident';
+import InProgress from '../screen/IT/InProgress';
+import Success from '../screen/IT/Success';
 
 const Tab = createMaterialTopTabNavigator();
 

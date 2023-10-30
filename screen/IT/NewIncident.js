@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
 import React,{useState,useEffect} from 'react'
-import AxiosIntance from "../ultil/AxiosIntance";
+import AxiosIntance from "../../ultil/AxiosIntance";
 
 const NewIncident = () => {
   const [dataNe, setdataNe] = useState([]);
