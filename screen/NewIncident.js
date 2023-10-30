@@ -1,104 +1,117 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useContext} from 'react'
 import AxiosIntance from "../ultil/AxiosIntance";
-
+import moment from 'moment';
+import { AppContext } from '../ultil/AppContext';
+import { useNavigation } from '@react-navigation/native';
 const NewIncident = () => {
+  const {inforuser,number} = useContext(AppContext);
   const [dataNe, setdataNe] = useState([]);
-  const data = [
-    {
-      index: "1",
-      incedentCategory: "Cơ sở vật chất",
-      room: "T1101",
-      reportTime: "9:20 AM",
-      userReport: "thuyttt"
+  const [reload, setreload] = useState(0);
+  const navigation=useNavigation();
+  // const clickItem=()=>{
+  //   navigation.navigate("DetailReport",id: item?_id);
+  // }
+  // const data = [
+  //   {
+  //     index: "1",
+  //     incedentCategory: "Cơ sở vật chất",
+  //     room: "T1101",
+  //     reportTime: "9:20 AM",
+  //     userReport: "thuyttt"
 
-    },
+  //   },
 
-    {
-      index: "2",
-      incedentCategory: "Thiết bị mạng",
-      room: "T1005",
-      reportTime: "4:30 PM",
-      userReport: "hoanh"
-    },
+  //   {
+  //     index: "2",
+  //     incedentCategory: "Thiết bị mạng",
+  //     room: "T1005",
+  //     reportTime: "4:30 PM",
+  //     userReport: "hoanh"
+  //   },
 
-    {
-      index: "3",
-      incedentCategory: "Vệ sinh phòng học",
-      room: "F305",
-      reportTime: "8:00 AM",
-      userReport: "vietdv"
-    },
+  //   {
+  //     index: "3",
+  //     incedentCategory: "Vệ sinh phòng học",
+  //     room: "F305",
+  //     reportTime: "8:00 AM",
+  //     userReport: "vietdv"
+  //   },
 
-    {
-      index: "4",
-      incedentCategory: "Vệ sinh phòng học",
-      room: "F305",
-      reportTime: "8:00 AM",
-      userReport: "vietdv"
-    },
+  //   {
+  //     index: "4",
+  //     incedentCategory: "Vệ sinh phòng học",
+  //     room: "F305",
+  //     reportTime: "8:00 AM",
+  //     userReport: "vietdv"
+  //   },
 
-    {
-      index: "5",
-      incedentCategory: "Vệ sinh phòng học",
-      room: "F305",
-      reportTime: "8:00 AM",
-      userReport: "vietdv"
-    },
-    {
-      index: "6",
-      incedentCategory: "Vệ sinh phòng học",
-      room: "F305",
-      reportTime: "8:00 AM",
-      userReport: "vietdv"
-    },
+  //   {
+  //     index: "5",
+  //     incedentCategory: "Vệ sinh phòng học",
+  //     room: "F305",
+  //     reportTime: "8:00 AM",
+  //     userReport: "vietdv"
+  //   },
+  //   {
+  //     index: "6",
+  //     incedentCategory: "Vệ sinh phòng học",
+  //     room: "F305",
+  //     reportTime: "8:00 AM",
+  //     userReport: "vietdv"
+  //   },
 
     
 
    
-  ];
+  // ];
+
     
   useEffect(() => {
     const getReportList = async () => {
-      const response = await AxiosIntance().get("/report/get-all");
-      console.log(response.reports);
+      const response = await AxiosIntance().get("/report/get-by-idstatus?status=" + "653b8409900c3796a66d6640");
+      console.log(response.report);
       if (response.result) {
-        setdataNe(response.reports)
+        setdataNe(response.report);
       } else {
         ToastAndroid.show("Lấy data thất bại")
       }
     }
     getReportList();
     return () => {
+     
     }
-  }, [])
+  },[number])
 
 
   const renderItem = ({ item, index }) => {
+    const formattedDate = moment(item?.date).format('DD-MM-YYYY');
     return (
-      <View style={[styles.item, { left : 5 ,top: 10, height: 90, width: 350, marginRight: 10, backgroundColor: "#fff", borderWidth: 0.5, borderColor: "#000", elevation: 5 }]}>
+      <View style={[styles.item, { left : 5 ,top: 10, height: 90, width: 350, marginRight: 10, backgroundColor: "#fff", borderWidth: 0.75, borderColor: "#000", elevation: 5 }]}>
         <View style = {{top : 15}}>
-          <Text style={{ fontWeight: "700", fontSize: 17, flexWrap: 'wrap', width: 200}}>{item.incident.name_incident}</Text>
+          <Text style={{fontWeight: "700", fontSize: 17, flexWrap: 'wrap', width: 200,color:"#6499E9"}}>{item.incident?.name_incident}</Text>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={{ fontWeight: "700", fontSize: 15}}>Phòng: </Text>
-            <Text style={{ fontWeight: "700", fontSize: 15, fontWeight: "700" }}>{item.room}</Text>
+            <Text style={{ fontWeight: "700", fontSize: 15,color:"#6499E9"}}>Phòng: </Text>
+            <Text style={{ fontWeight: "700", fontSize: 15, fontWeight: "700" }}> {item?.room}</Text>
           </View>
 
           <View style={{ flexDirection: 'row'}}>
-            <Text style={{  fontWeight: "700",fontSize: 15 }}>Yêu cầu lúc: </Text>
-            <Text style={{ fontWeight: "700",fontSize: 15 }}>{item.date}</Text>
+            <Text style={{  fontWeight: "700",fontSize: 15,color:"#6499E9" }}>Yêu cầu lúc: </Text>
+            <Text style={{ fontWeight: "700",fontSize: 15 }}> {formattedDate}</Text>
 
           </View>
 
           <View style={{ flexDirection: 'row' }}>
-            <Text style={{ fontWeight: "700",fontSize: 15 }}>Người gửi: </Text>
-            <Text style={{ fontWeight: "700",fontSize: 15, fontStyle : "italic" }}>{item.userReport}</Text>
+            <Text style={{ fontWeight: "700",fontSize: 15 ,color:"#6499E9"}}>Người gửi: </Text>
+            <Text style={{ fontWeight: "700",fontSize: 15, fontStyle : "italic" }}> {item.user?.name}</Text>
           </View>
         </View>
-
-        <TouchableOpacity style={{justifyContent : "flex-end", alignSelf : "flex-end", top : -40, right : 10, borderWidth : 1, borderColor : "green", height : 30, width : 80, borderRadius : 5}}>
+   
+        <TouchableOpacity onPress={()=>{navigation.navigate("DetailReport",{id :item?._id});setreload(+1)}}  style={{justifyContent : "flex-end", alignSelf : "flex-end", top : -40, right : 10, borderWidth : 1, borderColor : "green", height : 30, width : 80, borderRadius : 5}}>
           <Text style={{textAlign : "center", padding : 5, color : "green"}}>Tiếp nhận</Text>
       </TouchableOpacity>
+      
+
       </View>
 
       
@@ -132,5 +145,6 @@ const styles = StyleSheet.create({
     padding: 8,
     marginVertical: 10,
     justifyContent: "center",
+  
   },
 })

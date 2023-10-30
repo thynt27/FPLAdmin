@@ -9,9 +9,9 @@ export const AppContextProvider= (props)=>{
     // data sử dụng chung
     const [isLogin, setisLogin] = useState(false);
     const [inforuser, setinforuser] = useState({})
-    
+    const [number, setnumber] = useState(0)
     return(
-        <AppContext.Provider value={{isLogin,setisLogin,inforuser,setinforuser}}>
+        <AppContext.Provider value={{isLogin,setisLogin,inforuser,setinforuser,number,setnumber}}>
             {children}
 
         </AppContext.Provider>
