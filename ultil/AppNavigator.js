@@ -11,9 +11,19 @@ import AddReport from '../screen/AddReport';
 import HomeIT from '../screen/HomeIT';
 import Student from '../screen/Student';
 import Home from '../screen/Home';
+import DetailReport from '../screen/DetailReport';
+import InProgress from '../screen/InProgress';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-
+const NewsDetail=()=>{
+  return(
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='ReportList' component={ReportList}></Stack.Screen>
+      <Stack.Screen name='DetailReport' component={DetailReport}></Stack.Screen>
+      <Stack.Screen name='InProgress' component={InProgress}></Stack.Screen>
+    </Stack.Navigator>
+  )
+}
 const Users = () => {
   return (
     <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
@@ -91,6 +101,7 @@ const AppNavigator = () => {
       ) : (
         <IT />
       )}
+
     </>
   )
 }

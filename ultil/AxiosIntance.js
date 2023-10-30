@@ -4,7 +4,6 @@ const AxiosIntance = (contentType = "application/json") => {
   const axiosInstance = axios.create({
     // baseURL: 'https://fpoly-hcm.herokuapp.com/api/'
     baseURL: "http://192.168.1.5:3000/api",
-   
   });
   axiosInstance.interceptors.request.use(
     async (config) => {
