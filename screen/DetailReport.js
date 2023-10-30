@@ -11,6 +11,7 @@ const DetailReport = (props) => {
   const [data, setData] = useState([]);
   const {inforuser,setnumber,number} = useContext(AppContext);
   const { params } = route;
+  
     const [imageSource, setImageSource] = useState(null);
     const updateReport=async()=>
     {

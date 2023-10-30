@@ -56,8 +56,8 @@ const Main = () => {
     >
 
       <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
-      <Tab.Screen name="Report" component={AddReport} options={{ headerShown: false }} />
-      <Tab.Screen name="Report List" component={ReportList} options={{ headerShown: false }} />
+      {/* <Tab.Screen name="Report" component={AddReport} options={{ headerShown: false }} /> */}
+      <Tab.Screen name="Report List" component={NewsDetail} options={{ headerShown: false }} />
       <Tab.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
 
     </Tab.Navigator>
@@ -97,9 +97,9 @@ const AppNavigator = () => {
       {isLogin == false ? (
         <Users />
       ) : userRole === 1 ? (
-        <Main />
-      ) : (
         <IT />
+      ) : (
+        <Main />
       )}
 
     </>
