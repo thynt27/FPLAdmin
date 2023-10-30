@@ -11,6 +11,7 @@ import AddReport from '../screen/AddReport';
 import HomeIT from '../screen/HomeIT';
 import Student from '../screen/Student';
 import Home from '../screen/Home';
+import Process from '../screen/Process';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -63,8 +64,8 @@ const IT = () => {
 
           if (route.name === 'HomeIT') {
             return <AntDesign name='home' size={size} color={color} />;
-          } else if (route.name === 'Report') {
-            return <AntDesign name="form" size={size} color={color} />;
+          } else if (route.name === 'Process') {
+            return <AntDesign name="switcher" size={size} color={color} />;
           }
 
         },
@@ -73,7 +74,7 @@ const IT = () => {
       })}
     >
       <Tab.Screen name="HomeIT" component={HomeIT} options={{ headerShown: false }} />
-      <Tab.Screen name="Report" component={AddReport} options={{ headerShown: false }} />
+      <Tab.Screen name="Process" component={Process} options={{ headerShown: false }} />
 
     </Tab.Navigator>
   );
