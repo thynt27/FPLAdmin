@@ -13,8 +13,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Login = (props) => {
   const [emailuser, setemailuser] = useState("");
   const [passwuser, setpasswuser] = useState("");
+  const [role, setRole] = useState("");
   const {navigation} =props;
-  const {setisLogin,setinforuser} = useContext(AppContext);
+  const {setisLogin,setinforuser, setUserRole} = useContext(AppContext);
   const loginFPl = async () =>{
     try {
       const response=await AxiosIntance().post("/user/login",{email:emailuser,password:passwuser});
@@ -27,6 +28,16 @@ const Login = (props) => {
         ToastAndroid.show("Đăng nhập thành công ",ToastAndroid.SHORT);
         setisLogin(true);
         setinforuser(response.data.user);
+
+        const role = response.data.user.role;
+        setUserRole(role);
+        console.log("USER ROLE: ", role);
+
+        if(role === 1) {
+          setUserRole(1);
+        }else if(role === 100){
+          setUserRole(100)
+        }
   
       }else
       {

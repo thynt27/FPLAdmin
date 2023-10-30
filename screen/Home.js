@@ -3,6 +3,7 @@ import React from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import { useNavigation } from "@react-navigation/native";
 import BottomTabNavigation from '../Navigators.js/BottomTabNavigation';
+import { WINDOW_WIDTH } from '@gorhom/bottom-sheet';
 
 const Home = () => {
     const navigation = useNavigation();
@@ -49,10 +50,10 @@ const Home = () => {
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row', top: 20, left: 10 }}>
-                <Image style={{top : 5}} source={require("../assets/img/avatar.png")} />
+                <Image style={{top : 5,width:50,height:50,borderRadius:20}} source={require("../assets/img/avata2.jpg")} />
                 <View style={styles.nameView}>
                     <Text style={styles.name}>Xin chào,</Text>
-                    <Text style={[styles.name, { fontWeight: "700" }]}>Nguyễn Văn T</Text>
+                    <Text style={[styles.name, { fontWeight: "700" }]}>Nguyễn Hữu Hòa</Text>
                 </View>
             </View>
 
@@ -139,9 +140,10 @@ const styles = StyleSheet.create({
     },
     backgroundOption: {
         borderRadius: 20,
-        width: 100,
-        height: 150,
+        width: 110,
+        height: 135,
         top: 50,
+        paddingHorizontal: 5
     },
 
     icon :{

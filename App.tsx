@@ -18,6 +18,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import BottomTabNavigation from './Navigators.js/BottomTabNavigation';
 import { AppContextProvider } from './ultil/AppContext';
 import AppNavigator from './ultil/AppNavigator';
+import DetailReport from './screen/DetailReport';
 
 
 const Stack = createNativeStackNavigator();
@@ -75,6 +76,10 @@ export default function App() {
     </NavigationContainer>  
 
   </AppContextProvider>
+  
+
+    // <DetailReport></DetailReport>
+
  
   );
 }

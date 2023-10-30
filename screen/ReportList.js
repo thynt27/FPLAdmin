@@ -5,6 +5,7 @@ import TopTabNavigation from '../Navigators.js/TopTabNavigation'
 import BottomTabNavigation from '../Navigators.js/BottomTabNavigation'
 
 const ReportList = () => {
+ 
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -17,8 +18,6 @@ const ReportList = () => {
         <Text style={[styles.title]}>Xử lý sự cố</Text>
       </View>
       <TopTabNavigation />
-
-     
     </View>
   )
 }
