@@ -6,7 +6,6 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import AxiosIntance from '../../ultil/AxiosIntance';
 import { AppContext } from '../../ultil/AppContext';
-import SuccessDialog from '../../component/SuccesDialog';
 
 
 const AddReport = () => {
@@ -122,7 +121,7 @@ const AddReport = () => {
         <View style={{ backgroundColor: 'white', flex: 1 }}>
             <View style={styles.topNav}>
                 <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                    <Image source={ICON.Back} ></Image>
+                    <Image source={ICON.Back} />
                 </TouchableOpacity>
                 <View style={{ flex: 1, alignItems: 'center' }}>
                     <Text style={styles.text22}>Báo cáo sự cố</Text>

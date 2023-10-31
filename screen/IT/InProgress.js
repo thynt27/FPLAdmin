@@ -24,59 +24,7 @@ const InProgress = () => {
     getReportList();
 
   }, [number])
-  // const data = [
-  //   {
-  //     index: "1",
-  //     incedentCategory: "Cơ sở vật chất",
-  //     room: "T1101",
-  //     reportTime: "9:20 AM",
-  //     userReport: "thuyttt"
 
-  //   },
-
-  //   {
-  //     index: "2",
-  //     incedentCategory: "Thiết bị mạng",
-  //     room: "T1005",
-  //     reportTime: "4:30 PM",
-  //     userReport: "hoanh"
-  //   },
-
-  //   {
-  //     index: "3",
-  //     incedentCategory: "Vệ sinh phòng học",
-  //     room: "F305",
-  //     reportTime: "8:00 AM",
-  //     userReport: "vietdv"
-  //   },
-
-  //   {
-  //     index: "4",
-  //     incedentCategory: "Vệ sinh phòng học",
-  //     room: "F305",
-  //     reportTime: "8:00 AM",
-  //     userReport: "vietdv"
-  //   },
-
-  //   {
-  //     index: "5",
-  //     incedentCategory: "Vệ sinh phòng học",
-  //     room: "F305",
-  //     reportTime: "8:00 AM",
-  //     userReport: "vietdv"
-  //   },
-  //   {
-  //     index: "6",
-  //     incedentCategory: "Vệ sinh phòng học",
-  //     room: "F305",
-  //     reportTime: "8:00 AM",
-  //     userReport: "vietdv"
-  //   },
-
-
-
-
-  // ];
 
   const renderItem = ({ item, index }) => {
     const formattedDate = moment(item?.date).format('DD-MM-YYYY');

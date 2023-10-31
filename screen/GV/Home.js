@@ -1,56 +1,76 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import { useNavigation } from "@react-navigation/native";
-import BottomTabNavigation from '../../Navigators.js/BottomTabNavigation';
-import { WINDOW_WIDTH } from '@gorhom/bottom-sheet';
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from '@gorhom/bottom-sheet';
+import { AppContext } from '../../ultil/AppContext';
+import AxiosIntance from '../../ultil/AxiosIntance';
+import moment from 'moment';
 
 const Home = () => {
     const navigation = useNavigation();
-    const data = [
-        {
-            index: "1",
-            incedentCategory: "Sự cố về cơ sở vật chất",
-            incedentStatus: "Yêu cầu",
-            incedentTime: "9:20 AM",
+    const [data, setData] = useState([]);
+    const { number, inforuser } = useContext(AppContext);
+    const { setnumber } = useContext(AppContext);
 
-        },
-        {
-            index: "2",
-            incedentCategory: "Sự cố về thiết bị mạng",
-            incedentStatus: "Yêu cầu",
-            incedentTime: "4:30 PM",
-        },
-        {
-            index: "3",
-            incedentCategory: "Vệ sinh phòng học",
-            incedentStatus: "Yêu cầu",
-            incedentTime: "8:00 AM",
+    const getReportList = async () => {
+        const response = await AxiosIntance().get("/report/get-all");
+        console.log(response.report);
+        if (response.result) {
+            setData(response.report);
+        } else {
+            ToastAndroid.show("Lấy data thất bại")
         }
-    ]
+    }
+    useEffect(() => {
+
+        getReportList();
+
+    }, [number]);
+
     const renderItem = ({ item, index }) => {
+        const formattedDate = moment(item?.date).format('DD-MM-YYYY');
+        let statusColor = '#4287f5'; 
+
+        if (item.status_report) {
+            switch (item.status_report._id) {
+                case '653b8409900c3796a66d6640':
+                    statusColor = '#4287f5'; 
+                    break;
+                case '653b843c900c3796a66d6641':
+                    statusColor = 'orange';
+                    break;
+                case '653b8473900c3796a66d6642':
+                    statusColor = 'green';
+                    break;
+                default:
+                    statusColor = '#4287f5';
+            }
+        }
         return (
-            <TouchableOpacity style={[styles.item, { left: 10, top : 10, height: 150, width: 300, marginRight : 10, backgroundColor: "#eef5ff" , borderWidth : 1, borderColor : "#99bcf1", elevation : 5 }]}>
-                <View style={[styles.backgroundIcon, { backgroundColor: "#fff", alignSelf: "flex-end", width: 70, height: 70 }]}>
+            <TouchableOpacity style={[styles.item, { alignSelf: 'center', marginVertical: 10, height: 100, width: '80%', backgroundColor: "white", borderWidth: 1, borderColor: "#99bcf1", elevation: 5 }]}>
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={{ width: '80%' }} >
+                        <Text style={{ fontWeight: '600', fontSize: 20, color: '#0E3B65' }}>{item.incident?.name_incident}</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{ fontWeight: '400', fontSize: 16 }}>Trạng thái: </Text>
+                            <Text style={{ fontWeight: '600', fontSize: 16, color: statusColor }}>{item.status_report?.name_status}</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{ fontWeight: '400', fontSize: 16 }}>Yêu cầu lúc: </Text>
+                            <Text style={{ fontWeight: '400', fontStyle: 'italic', fontSize: 16 }}>{formattedDate}</Text>
+                        </View>
+                    </View>
                     <Image source={require("../../assets/img/AvatarRP.png")} />
                 </View>
-                <Text style={{ fontWeight: "700", fontSize: 20, flexWrap: 'wrap', top: -50, width: 150 }}>{item.incedentCategory}</Text>
-                <View style={{ flexDirection: 'row', top: -30 }}>
-                    <Text style={{ fontSize: 17 }}>Trạng thái: </Text>
-                    <Text style={{ left: 130 , fontSize : 17, color : "#6499e9"  ,fontWeight : "700"}}>{item.incedentStatus}</Text>
-                </View>
-                <View style={{ flexDirection: 'row', top: -20 }}>
-                    <Text style={{ fontSize: 17 }}>Yêu cầu lúc: </Text>
-                    <Text style={{fontSize : 17  , left: 120 }}>{item.incedentTime}</Text>
-                </View>
 
-            </TouchableOpacity>
+            </TouchableOpacity >
         )
     };
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row', top: 20, left: 10 }}>
-                <Image style={{top : 5}} source={require("../../assets/img/avatar.png")} />
+                <Image style={{ top: 5 }} source={require("../../assets/img/avatar.png")} />
                 <View style={styles.nameView}>
                     <Text style={styles.name}>Xin chào,</Text>
                     <Text style={[styles.name, { fontWeight: "700" }]}>Nguyễn Văn T</Text>
@@ -61,47 +81,43 @@ const Home = () => {
                 <Text style={styles.title}>Dịch vụ trực tuyến</Text>
                 <View style={{ flexDirection: 'row', justifyContent: "space-evenly", }}>
                     <TouchableOpacity onPress={() => navigation.navigate('AddReport')} >
-                        <LinearGradient colors={['#D9D9D9', '#4265a8', '#fff']} start={{ x: 0 ,y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
-                            <View style={[styles.backgroundIcon, { backgroundColor: "#a6dff1" , padding : 10 }]}>
+                        <LinearGradient colors={['#D9D9D9', '#6499e9', '#fff']} start={{ x: 0, y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
+                            <View style={[styles.backgroundIcon, { backgroundColor: "#a6dff1", padding: 10 }]}>
                                 <Image style={styles.icon} source={require("../../assets/img/Vector.png")} />
                             </View>
                             <Text style={styles.text}>Báo cáo sự cố </Text>
                         </LinearGradient>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <LinearGradient colors={['#D9D9D9', '#268740', '#fff']} start={{ x: 0 ,y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
-                            <View style={[styles.backgroundIcon, { backgroundColor: "#a5ebb8"  , padding : 10 }]}>
+                        <LinearGradient colors={['#D9D9D9', '#268740', '#fff']} start={{ x: 0, y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
+                            <View style={[styles.backgroundIcon, { backgroundColor: "#a5ebb8", padding: 10 }]}>
                                 <Image style={styles.icon} source={require("../../assets/img/Vector2.png")} />
                             </View>
                             <Text style={styles.text}>Hỗ trợ CNTT</Text>
                         </LinearGradient>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <LinearGradient colors={['#D9D9D9', '#fd8900', '#fff']} start={{ x: 0 ,y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
-                            <View style={[styles.backgroundIcon, { backgroundColor: "#ffe97e"  , padding : 10 }]}>
+                        <LinearGradient colors={['#D9D9D9', '#fd8900', '#fff']} start={{ x: 0, y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
+                            <View style={[styles.backgroundIcon, { backgroundColor: "#ffe97e", padding: 10 }]}>
                                 <Image style={styles.icon} source={require("../../assets/img/Vector3.png")} />
                             </View>
                             <Text style={styles.text}>Phòng và hội trường</Text>
                         </LinearGradient>
                     </TouchableOpacity>
 
+
                 </View>
-
-                <Text style={{ top: 100, left: 20, fontSize: 20, fontWeight: "700", color: "#000" }}>Thông báo</Text>
-
-                <FlatList
-                    style={styles.flatList}
-                    data={data}
-                    horizontal
-                    renderItem={renderItem}
-                    keyExtractor={item => `key-${item.index}`}
-                />
-
-
-
-
+                <View style={{ width: '100%', height: 360, marginTop: 70 }}>
+                    <Text style={{ marginLeft: 20, fontSize: 20, fontWeight: "700", color: "#000" }}>Thông báo</Text>
+                    <FlatList
+                        style={styles.flatList}
+                        data={data}
+                        vertical
+                        renderItem={renderItem}
+                        keyExtractor={item => item._id}
+                    />
+                </View>
             </View>
-        <BottomTabNavigation/>
         </View>
     )
 }
@@ -111,7 +127,7 @@ export default Home
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#4287f5'
+        backgroundColor: '#99bcf1'
     },
     nameView: {
         left: 10,
@@ -146,9 +162,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5
     },
 
-    icon :{
-        width : 30,
-        height : 30
+    icon: {
+        width: 30,
+        height: 30
     },
 
     backgroundIcon: {
@@ -164,12 +180,10 @@ const styles = StyleSheet.create({
     item: {
         borderWidth: 0.5,
         padding: 8,
-        borderRadius: 20,
-        justifyContent: "center",
+        borderRadius: 15,
+        //justifyContent: "center",
     },
-    flatList : {
-        top : 100,
-        marginRight : 10,
-        left : 10
+    flatList: {
+        marginTop: 10
     }
 })
