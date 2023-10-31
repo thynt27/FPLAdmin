@@ -11,16 +11,16 @@ import { AppContext } from '../../ultil/AppContext';
 const AddReport = () => {
     const navigation = useNavigation();
     const [value, setValue] = useState(null);
-    const [incidents, setIncidents] = useState([]);
-    const [room, setRoom] = useState("")
-    const [image, setImage] = useState(null);
-    const [description, setDescription] = useState("");
-    const { inforuser, number, setnumber, userRole } = useContext(AppContext);
-
-
     const [isFocus, setIsFocus] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false);
     const [isSuccessModalVisible, setSuccessModalVisible] = useState(false);
+
+    const [room, setRoom] = useState("");
+    const [incidents, setIncidents] = useState([]);
+    const [image, setImage] = useState(null);
+    const {inforuser,number,setnumber,userRole} = useContext(AppContext);
+    const [description, setDescription] = useState("");
+
 
 
     //modal camera
@@ -105,7 +105,6 @@ const AddReport = () => {
             if (response.result == true) {
                 ToastAndroid.show("Đăng tin thành công!", ToastAndroid.SHORT);
                 console.log(response);
-                
                 navigation.navigate("Home");
             } else {
                 ToastAndroid.show("Fail!", ToastAndroid.SHORT);
