@@ -134,12 +134,12 @@ const Login = (props) => {
           <Text style={{ color: '#000', fontWeight: 'bold', top: -50, left: 70 }}>Quên mật khẩu </Text>
         </TouchableOpacity>
 
-        <RadioGroup
+        {/* <RadioGroup
           radioButtons={radioButtons}
           onPress={setSelectedId}
           selectedId={selectedId}
           containerStyle={{ flexDirection: 'row', top: -40, justifyContent: "space-evenly" }}
-        />
+        /> */}
 
         <TouchableOpacity style={[styles.login, { flexDirection: 'row', backgroundColor: "#fda600" }]} onPress={loginFPl} >
           <Text style={{ color: '#fff', fontWeight: 'bold' }}>Đăng nhập</Text>

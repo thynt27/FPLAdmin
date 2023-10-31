@@ -31,7 +31,7 @@ const Main = () => {
 
           if (route.name === 'Home') {
             return <AntDesign name='home' size={size} color={color} />;
-          } else if (route.name === 'Report') {
+          } else if (route.name === 'AddReport') {
             return <AntDesign name="form" size={size} color={color} />;
           } else if (route.name === 'Report List') {
             return <AntDesign name="phone" size={size} color={color} />;
@@ -46,7 +46,7 @@ const Main = () => {
     >
 
       <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
-      <Tab.Screen name="Report" component={AddReport} options={{ headerShown: false }} />
+      <Tab.Screen name="AddReport" component={AddReport} options={{ headerShown: false }} />
       <Tab.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
 
     </Tab.Navigator>

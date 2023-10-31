@@ -60,7 +60,7 @@ const Home = () => {
             <View style={styles.backgroundRadius}>
                 <Text style={styles.title}>Dịch vụ trực tuyến</Text>
                 <View style={{ flexDirection: 'row', justifyContent: "space-evenly", }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Report')} >
+                    <TouchableOpacity onPress={() => navigation.navigate('AddReport')} >
                         <LinearGradient colors={['#D9D9D9', '#4265a8', '#fff']} start={{ x: 0 ,y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
                             <View style={[styles.backgroundIcon, { backgroundColor: "#a6dff1" , padding : 10 }]}>
                                 <Image style={styles.icon} source={require("../../assets/img/Vector.png")} />
@@ -111,7 +111,7 @@ export default Home
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#0E3B65'
+        backgroundColor: '#4287f5'
     },
     nameView: {
         left: 10,

@@ -1,20 +1,28 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Modal, PermissionsAndroid, ToastAndroid } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useNavigation } from "@react-navigation/native";
 import { ICON } from '../../constant/Theme'
 import { Dropdown } from 'react-native-element-dropdown';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import AxiosIntance from '../../ultil/AxiosIntance';
+import { AppContext } from '../../ultil/AppContext';
+import SuccessDialog from '../../component/SuccesDialog';
 
 
 const AddReport = () => {
     const navigation = useNavigation();
     const [value, setValue] = useState(null);
     const [incidents, setIncidents] = useState([]);
-    const [isFocus, setIsFocus] = useState(false);
+    const [room, setRoom] = useState("")
     const [image, setImage] = useState(null);
+    const [description, setDescription] = useState("");
+    const { inforuser, number, setnumber, userRole } = useContext(AppContext);
+
+
+    const [isFocus, setIsFocus] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false);
     const [isSuccessModalVisible, setSuccessModalVisible] = useState(false);
+
 
     //modal camera
     const toggleModal = () => {
@@ -85,11 +93,36 @@ const AddReport = () => {
         });
     };
 
+    const addReport = async () => {
+        try {
+            const response = await AxiosIntance().post("/report/add-new", {
+                room: room,
+                image: image,
+                description: description,
+                incident: value,
+                user: inforuser._id,
+            });
+
+            if (response.result == true) {
+                ToastAndroid.show("Đăng tin thành công!", ToastAndroid.SHORT);
+                console.log(response);
+                
+                navigation.navigate("Home");
+            } else {
+                ToastAndroid.show("Fail!", ToastAndroid.SHORT);
+                console.log("Thất bại");
+            }
+        } catch (error) {
+            console.log("Thất bại");
+            console.error(error);
+        }
+    };
+
     return (
         <View style={{ backgroundColor: 'white', flex: 1 }}>
             <View style={styles.topNav}>
-                <TouchableOpacity>
-                    <Image source={ICON.Back} style={{}}></Image>
+                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                    <Image source={ICON.Back} ></Image>
                 </TouchableOpacity>
                 <View style={{ flex: 1, alignItems: 'center' }}>
                     <Text style={styles.text22}>Báo cáo sự cố</Text>
@@ -98,6 +131,7 @@ const AddReport = () => {
             <View style={{ paddingLeft: 22 }}>
                 <TextInput style={styles.input}
                     placeholder='Phòng'
+                    onChangeText={setRoom}
                 >
                 </TextInput>
                 <Dropdown
@@ -121,11 +155,12 @@ const AddReport = () => {
                         setIsFocus(false);
                     }}>
                 </Dropdown>
-                <TextInput style={[styles.input,{height: 130, textAlignVertical: 'top'}]}
+                <TextInput style={[styles.input, { height: 130, textAlignVertical: 'top' }]}
                     placeholder='Mô tả'
+                    onChangeText={setDescription}
                 >
                 </TextInput>
-                <Text style={[styles.text18,{ marginTop: 20}]}>Hình ảnh đính kèm</Text>
+                <Text style={[styles.text18, { marginTop: 20 }]}>Hình ảnh đính kèm</Text>
                 <TouchableOpacity onPress={() => toggleModal()}>
                     <View style={{ width: 100, height: 100, backgroundColor: '#D9D9D9', justifyContent: 'center', alignItems: 'center', marginTop: 10 }}>
                         {image ? (
@@ -138,7 +173,7 @@ const AddReport = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={{ width: '90%', height: 45, backgroundColor: '#4287f5', borderRadius: 8, justifyContent: 'center', alignItems: 'center', marginTop: 50 }}
-                    onPress={() => toggleSuccessModal()}>
+                    onPress={() => addReport()}>
                     <Text style={{ fontSize: 18, color: 'white', fontWeight: '500' }}>Gửi yêu cầu</Text>
                 </TouchableOpacity>
             </View>
@@ -153,9 +188,9 @@ const AddReport = () => {
                 <View style={styles.modalContainer}>
                     {/* Add your camera and gallery buttons here */}
                     <TouchableOpacity
-                        style={{ marginTop: 10, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 0.6, width: '100%' }}
+                        style={{ marginTop: 0, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 0.6, width: '100%' }}
                         onPress={() => requestCameraPermission()}>
-                        <Text style={[styles.text20,{ color: '#4287f5' }]}>Chụp ảnh</Text>
+                        <Text style={[styles.text20, { color: '#4287f5', marginBottom: 10 }]}>Chụp ảnh</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}
                         onPress={() => chooseImage()}>
@@ -163,7 +198,7 @@ const AddReport = () => {
                     </TouchableOpacity>
                 </View>
             </Modal>
-            <Modal
+            {/* <Modal
                 animationType="fade"
                 transparent={true}
                 visible={isSuccessModalVisible}>
@@ -180,7 +215,8 @@ const AddReport = () => {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </Modal>
+            </Modal> */}
+
         </View>
     )
 }
@@ -188,35 +224,35 @@ const AddReport = () => {
 export default AddReport
 
 const styles = StyleSheet.create({
-    text16:{
+    text16: {
         fontSize: 16,
-        color: 'white', 
+        color: 'white',
         fontWeight: '500'
     },
-    text18:{
+    text18: {
         fontSize: 22,
         color: 'black',
-        fontWeight: '500' 
+        fontWeight: '500'
     },
-    text20:{
-        marginTop: 15, 
-        fontSize: 20, 
-        color: '#21833C', 
-        fontWeight: '500' 
+    text20: {
+        marginTop: 15,
+        fontSize: 20,
+        color: '#21833C',
+        fontWeight: '500'
     },
-    text22:{
+    text22: {
         fontSize: 22,
         color: 'black',
-        fontWeight: '500' 
+        fontWeight: '500'
     },
-    topNav:{
+    topNav: {
         width: '100%',
         height: 50,
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 20
     },
-    input:{
+    input: {
         width: '95%',
         height: 45, borderWidth: 0.5,
         borderRadius: 8,
@@ -261,7 +297,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         alignSelf: 'center',
         width: '100%',
-        height: 130,
+        height: 125,
         bottom: 0,
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
