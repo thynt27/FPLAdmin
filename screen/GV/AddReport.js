@@ -18,10 +18,8 @@ const AddReport = () => {
     const [room, setRoom] = useState("");
     const [incidents, setIncidents] = useState([]);
     const [image, setImage] = useState(null);
-    const {inforuser,number,setnumber,userRole} = useContext(AppContext);
+    const { inforuser, number, setnumber, userRole } = useContext(AppContext);
     const [description, setDescription] = useState("");
-
-
 
     //modal camera
     const toggleModal = () => {
@@ -39,6 +37,7 @@ const AddReport = () => {
             const response = await AxiosIntance().get("/incident/get-all");
             console.log(response.incidents);
             setIncidents(response.incidents);
+            
         }
         getIncidentList();
         return () => {
@@ -77,6 +76,7 @@ const AddReport = () => {
     const chooseImage = () => {
         const options = {
             mediaType: 'photo',
+            quality: 3,
         };
 
         launchImageLibrary(options, (response) => {
@@ -92,7 +92,10 @@ const AddReport = () => {
         });
     };
 
+
+
     const addReport = async () => {
+
         try {
             const response = await AxiosIntance().post("/report/add-new", {
                 room: room,
@@ -105,7 +108,7 @@ const AddReport = () => {
             if (response.result == true) {
                 ToastAndroid.show("Đăng tin thành công!", ToastAndroid.SHORT);
                 console.log(response);
-                navigation.navigate("Home");
+                navigation.navigate("Home" );
             } else {
                 ToastAndroid.show("Fail!", ToastAndroid.SHORT);
                 console.log("Thất bại");
@@ -122,7 +125,7 @@ const AddReport = () => {
                 <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                     <Image source={ICON.Back} />
                 </TouchableOpacity>
-                <View style={{ flex: 1, alignItems: 'center' }}>
+                <View style={{ flex: 1, alignItems: 'center' , left : -15 }}>
                     <Text style={styles.text22}>Báo cáo sự cố</Text>
                 </View>
             </View>
@@ -140,11 +143,10 @@ const AddReport = () => {
                     iconStyle={styles.iconStyle}
                     data={incidents.map(incident => ({ label: incident.name_incident, value: incident._id }))}
                     value={value}
-                    search
                     maxHeight={200}
                     labelField="label"
                     valueField="value"
-                    placeholder={!isFocus ? 'Loại sự cố' : '...'}
+                    placeholder={!isFocus ? 'Loại sự cố' : 'Loại sự cố'}
                     searchPlaceholder="Search..."
                     onFocus={() => setIsFocus(true)}
                     onBlur={() => setIsFocus(false)}
