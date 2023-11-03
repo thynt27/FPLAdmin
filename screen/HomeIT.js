@@ -8,8 +8,8 @@ import { AppContext } from '../ultil/AppContext';
 import AxiosIntance from '../ultil/AxiosIntance';
 import moment from 'moment';
 
-const Home = () => {
-    const navigation = useNavigation();
+const HomeIT = () => {
+  const navigation = useNavigation();
   const [data, setData] = useState([]);
   const {number,inforuser}=useContext(AppContext);
   const {setnumber}=useContext(AppContext);
@@ -128,70 +128,70 @@ const Home = () => {
     )
 }
 
-export default Home
+export default HomeIT
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#0E3B65'
-    },
-    nameView: {
-        left: 10,
-        top: 10,
+  container: {
+    flex: 1,
+    backgroundColor: '#0E3B65'
+},
+nameView: {
+    left: 10,
+    top: 10,
 
-    },
-    name: {
-        color: "#fff",
-        fontSize: 20,
-    },
-    backgroundRadius: {
-        backgroundColor: '#fff',
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        width: "100%",
-        height: "100%",
-        top: 50,
-        alignSelf: 'center'
-    },
-    title: {
-        fontSize: 30,
-        fontWeight: "700",
-        textAlign: 'center',
-        top: 20,
-        color: "#000"
-    },
-    backgroundOption: {
-        borderRadius: 20,
-        width: 110,
-        height: 135,
-        top: 50,
-        paddingHorizontal: 5
-    },
+},
+name: {
+    color: "#fff",
+    fontSize: 20,
+},
+backgroundRadius: {
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    width: "100%",
+    height: "100%",
+    top: 50,
+    alignSelf: 'center'
+},
+title: {
+    fontSize: 30,
+    fontWeight: "700",
+    textAlign: 'center',
+    top: 20,
+    color: "#000"
+},
+backgroundOption: {
+    borderRadius: 20,
+    width: 110,
+    height: 135,
+    top: 50,
+    paddingHorizontal: 5
+},
 
-    icon :{
-        width : 30,
-        height : 30
-    },
+icon :{
+    width : 30,
+    height : 30
+},
 
-    backgroundIcon: {
-        top: 10,
-        width: 45,
-        height: 45,
-        borderRadius: 100 / 2,
-        justifyContent: "center",
-        alignItems: "center",
-        alignSelf: "center",
-    },
-    text: { top: 20, textAlign: "center", color: "white", fontWeight: "600", fontSize: 20 },
-    item: {
-        borderWidth: 0.5,
-        padding: 8,
-        borderRadius: 20,
-        justifyContent: "center",
-    },
-    flatList : {
-        top : 100,
-        marginRight : 10,
-        left : 10
-    }
+backgroundIcon: {
+    top: 10,
+    width: 45,
+    height: 45,
+    borderRadius: 100 / 2,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+},
+text: { top: 20, textAlign: "center", color: "white", fontWeight: "600", fontSize: 20 },
+item: {
+    borderWidth: 0.5,
+    padding: 8,
+    borderRadius: 20,
+    justifyContent: "center",
+},
+flatList : {
+    top : 100,
+    marginRight : 10,
+    left : 10
+}
 })

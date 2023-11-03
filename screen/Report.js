@@ -26,7 +26,9 @@ const Report = () => {
   const [isFocus, setIsFocus] = useState(false);
   const [room, setRoom] = useState("");
   const [description, setDescription] = useState("")
-
+    const click =()=>{
+      console.log(value);
+    }
   useEffect(() => {
     const getIncidentList = async () => {
       const response = await AxiosIntance().get("/incident/get-all");
@@ -175,7 +177,7 @@ const Report = () => {
         style={styles.input}
         data={dataNe}
         labelField="name_incident"
-        valueField="-id"
+        valueField="_id"
         placeholder={!isFocus ? 'Sự cố đang gặp phải ' : 'Sự cố đang gặp phải'}
         value={value}
         onFocus={() => setIsFocus(true)}
@@ -210,7 +212,7 @@ const Report = () => {
 
       </TouchableOpacity>
 
-      <TouchableOpacity style={{ top: 70, left: 50, backgroundColor: '#0e3b65', width: 300, height: 40, borderRadius: 10 }} onPress={addReport}>
+      <TouchableOpacity style={{ top: 70, left: 50, backgroundColor: '#0e3b65', width: 300, height: 40, borderRadius: 10 }} onPress={click}>
         <Text style={{ textAlign: 'center', color: '#fff', padding: 10 }}>Gửi yêu cầu</Text>
       </TouchableOpacity>
 
