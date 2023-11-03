@@ -50,7 +50,7 @@ const HomeIT = () => {
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row', top: 20, left: 10 }}>
-                <Image style={{ top: 5, width: 50, height: 50, borderRadius: 20 }} source={require("../../assets/img/avatar.png")} />
+                <Image style={{top : 5,width:50,height:50,borderRadius:20}} source={require("../assets/img/avata2.jpg")} />
                 <View style={styles.nameView}>
                     <Text style={styles.name}>Xin chào,</Text>
                     <Text style={[styles.name, { fontWeight: "700" }]}>Nguyễn Hữu Hòa</Text>
