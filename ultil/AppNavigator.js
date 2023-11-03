@@ -4,26 +4,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AppContext } from './AppContext';
 import Login from '../screen/Login';
-import ReportList from '../screen/ReportList';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Setting from '../screen/Setting';
-import AddReport from '../screen/AddReport';
-import HomeIT from '../screen/HomeIT';
-import Student from '../screen/Student';
-import Home from '../screen/Home';
-import DetailReport from '../screen/DetailReport';
-import InProgress from '../screen/InProgress';
+import AddReport from '../screen/GV/AddReport';
+import HomeIT from '../screen/IT/HomeIT';
+import Home from '../screen/GV/Home';
+import Process from '../screen/IT/Process';
+import DetailReport from '../screen/IT/DetailReport';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-const NewsDetail=()=>{
-  return(
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='ReportList' component={ReportList}></Stack.Screen>
-      <Stack.Screen name='DetailReport' component={DetailReport}></Stack.Screen>
-      <Stack.Screen name='InProgress' component={InProgress}></Stack.Screen>
-    </Stack.Navigator>
-  )
-}
+
 const Users = () => {
   return (
     <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
@@ -41,7 +31,7 @@ const Main = () => {
 
           if (route.name === 'Home') {
             return <AntDesign name='home' size={size} color={color} />;
-          } else if (route.name === 'Report') {
+          } else if (route.name === 'AddReport') {
             return <AntDesign name="form" size={size} color={color} />;
           } else if (route.name === 'Report List') {
             return <AntDesign name="phone" size={size} color={color} />;
@@ -56,14 +46,23 @@ const Main = () => {
     >
 
       <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
-      <Tab.Screen name="Report" component={AddReport} options={{ headerShown: false }} />
-      <Tab.Screen name="Report List" component={ReportList} options={{ headerShown: false }} />
+      <Tab.Screen name="AddReport" component={AddReport} options={{ headerShown: false }} />
       <Tab.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
 
     </Tab.Navigator>
   );
 
 };
+
+const NewsDetail=()=>{
+  return(
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='ReportList' component={Process}></Stack.Screen>
+      <Stack.Screen name='DetailReport' component={DetailReport}></Stack.Screen>
+    </Stack.Navigator>
+  )
+}
+
 
 const IT = () => {
   return (
@@ -73,8 +72,8 @@ const IT = () => {
 
           if (route.name === 'HomeIT') {
             return <AntDesign name='home' size={size} color={color} />;
-          } else if (route.name === 'Report') {
-            return <AntDesign name="form" size={size} color={color} />;
+          } else if (route.name === 'Process') {
+            return <AntDesign name="switcher" size={size} color={color} />;
           }
 
         },
@@ -83,7 +82,7 @@ const IT = () => {
       })}
     >
       <Tab.Screen name="HomeIT" component={HomeIT} options={{ headerShown: false }} />
-      <Tab.Screen name="Report" component={AddReport} options={{ headerShown: false }} />
+      <Tab.Screen name="Process" component={NewsDetail} options={{ headerShown: false }} />
 
     </Tab.Navigator>
   );
@@ -101,7 +100,6 @@ const AppNavigator = () => {
       ) : (
         <IT />
       )}
-
     </>
   )
 }

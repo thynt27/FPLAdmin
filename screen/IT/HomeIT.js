@@ -1,11 +1,11 @@
+
 import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native'
 import React from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import { useNavigation } from "@react-navigation/native";
-import BottomTabNavigation from '../Navigators.js/BottomTabNavigation';
-import { WINDOW_WIDTH } from '@gorhom/bottom-sheet';
+import BottomTabNavigation from '../../Navigators.js/BottomTabNavigation';
 
-const Home = () => {
+const HomeIT = () => {
     const navigation = useNavigation();
     const data = [
         {
@@ -30,18 +30,18 @@ const Home = () => {
     ]
     const renderItem = ({ item, index }) => {
         return (
-            <TouchableOpacity style={[styles.item, { left: 10, top : 10, height: 150, width: 300, marginRight : 10, backgroundColor: "#eef5ff" , borderWidth : 1, borderColor : "#99bcf1", elevation : 5 }]}>
+            <TouchableOpacity style={[styles.item, { left: 10, top: 10, height: 150, width: 300, marginRight: 10, backgroundColor: "#eef5ff", borderWidth: 1, borderColor: "#99bcf1", elevation: 5 }]}>
                 <View style={[styles.backgroundIcon, { backgroundColor: "#fff", alignSelf: "flex-end", width: 70, height: 70 }]}>
-                    <Image source={require("../assets/img/AvatarRP.png")} />
+                    <Image source={require("../../assets/img/AvatarRP.png")} />
                 </View>
                 <Text style={{ fontWeight: "700", fontSize: 20, flexWrap: 'wrap', top: -50, width: 150 }}>{item.incedentCategory}</Text>
                 <View style={{ flexDirection: 'row', top: -30 }}>
                     <Text style={{ fontSize: 17 }}>Trạng thái: </Text>
-                    <Text style={{ left: 130 , fontSize : 17, color : "#6499e9"  ,fontWeight : "700"}}>{item.incedentStatus}</Text>
+                    <Text style={{ left: 130, fontSize: 17, color: "#6499e9", fontWeight: "700" }}>{item.incedentStatus}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', top: -20 }}>
                     <Text style={{ fontSize: 17 }}>Yêu cầu lúc: </Text>
-                    <Text style={{fontSize : 17  , left: 120 }}>{item.incedentTime}</Text>
+                    <Text style={{ fontSize: 17, left: 120 }}>{item.incedentTime}</Text>
                 </View>
 
             </TouchableOpacity>
@@ -50,7 +50,7 @@ const Home = () => {
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row', top: 20, left: 10 }}>
-                <Image style={{top : 5,width:50,height:50,borderRadius:20}} source={require("../assets/img/avata2.jpg")} />
+                <Image style={{ top: 5, width: 50, height: 50, borderRadius: 20 }} source={require("../../assets/img/avatar.png")} />
                 <View style={styles.nameView}>
                     <Text style={styles.name}>Xin chào,</Text>
                     <Text style={[styles.name, { fontWeight: "700" }]}>Nguyễn Hữu Hòa</Text>
@@ -60,26 +60,26 @@ const Home = () => {
             <View style={styles.backgroundRadius}>
                 <Text style={styles.title}>Dịch vụ trực tuyến</Text>
                 <View style={{ flexDirection: 'row', justifyContent: "space-evenly", }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Report')} >
-                        <LinearGradient colors={['#D9D9D9', '#4265a8', '#fff']} start={{ x: 0 ,y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
-                            <View style={[styles.backgroundIcon, { backgroundColor: "#a6dff1" , padding : 10 }]}>
-                                <Image style={styles.icon} source={require("../assets/img/Vector.png")} />
+                    <TouchableOpacity onPress={() => navigation.navigate('Process')} >
+                        <LinearGradient colors={['#D9D9D9', '#4265a8', '#fff']} start={{ x: 0, y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
+                            <View style={[styles.backgroundIcon, { backgroundColor: "#a6dff1", padding: 10 }]}>
+                                <Image style={styles.icon} source={require("../../assets/img/Vector.png")} />
                             </View>
-                            <Text style={styles.text}>Báo cáo sự cố </Text>
+                            <Text style={styles.text}>Xử lý {'\n'} sự cố </Text>
                         </LinearGradient>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <LinearGradient colors={['#D9D9D9', '#268740', '#fff']} start={{ x: 0 ,y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
-                            <View style={[styles.backgroundIcon, { backgroundColor: "#a5ebb8"  , padding : 10 }]}>
-                                <Image style={styles.icon} source={require("../assets/img/Vector2.png")} />
+                        <LinearGradient colors={['#D9D9D9', '#268740', '#fff']} start={{ x: 0, y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
+                            <View style={[styles.backgroundIcon, { backgroundColor: "#a5ebb8", padding: 10 }]}>
+                                <Image style={styles.icon} source={require("../../assets/img/Vector2.png")} />
                             </View>
                             <Text style={styles.text}>Hỗ trợ CNTT</Text>
                         </LinearGradient>
                     </TouchableOpacity>
                     <TouchableOpacity>
-                        <LinearGradient colors={['#D9D9D9', '#fd8900', '#fff']} start={{ x: 0 ,y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
-                            <View style={[styles.backgroundIcon, { backgroundColor: "#ffe97e"  , padding : 10 }]}>
-                                <Image style={styles.icon} source={require("../assets/img/Vector3.png")} />
+                        <LinearGradient colors={['#D9D9D9', '#fd8900', '#fff']} start={{ x: 0, y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
+                            <View style={[styles.backgroundIcon, { backgroundColor: "#ffe97e", padding: 10 }]}>
+                                <Image style={styles.icon} source={require("../../assets/img/Vector3.png")} />
                             </View>
                             <Text style={styles.text}>Phòng và hội trường</Text>
                         </LinearGradient>
@@ -96,22 +96,17 @@ const Home = () => {
                     renderItem={renderItem}
                     keyExtractor={item => `key-${item.index}`}
                 />
-
-
-
-
             </View>
-        <BottomTabNavigation/>
         </View>
     )
 }
 
-export default Home
+export default HomeIT
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#0E3B65'
+        backgroundColor: '#D2E1F8'
     },
     nameView: {
         left: 10,
@@ -124,8 +119,8 @@ const styles = StyleSheet.create({
     },
     backgroundRadius: {
         backgroundColor: '#fff',
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
         width: "100%",
         height: "100%",
         top: 50,
@@ -140,15 +135,14 @@ const styles = StyleSheet.create({
     },
     backgroundOption: {
         borderRadius: 20,
-        width: 110,
-        height: 135,
+        width: 100,
+        height: 130,
         top: 50,
-        paddingHorizontal: 5
     },
 
-    icon :{
-        width : 30,
-        height : 30
+    icon: {
+        width: 30,
+        height: 30
     },
 
     backgroundIcon: {
@@ -167,9 +161,10 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         justifyContent: "center",
     },
-    flatList : {
-        top : 100,
-        marginRight : 10,
-        left : 10
+    flatList: {
+        top: 100,
+        marginRight: 10,
+        left: 10
     }
 })
+

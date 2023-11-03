@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
 import React,{useState,useEffect, useContext} from 'react'
-import AxiosIntance from "../ultil/AxiosIntance";
+import AxiosIntance from "../../ultil/AxiosIntance";
 import moment from 'moment';
-import { AppContext } from '../ultil/AppContext';
+import { AppContext } from '../../ultil/AppContext';
 import { useNavigation } from '@react-navigation/native';
 const NewIncident = () => {
   const {inforuser,number} = useContext(AppContext);
@@ -12,59 +12,7 @@ const NewIncident = () => {
   // const clickItem=()=>{
   //   navigation.navigate("DetailReport",id: item?_id);
   // }
-  // const data = [
-  //   {
-  //     index: "1",
-  //     incedentCategory: "Cơ sở vật chất",
-  //     room: "T1101",
-  //     reportTime: "9:20 AM",
-  //     userReport: "thuyttt"
-
-  //   },
-
-  //   {
-  //     index: "2",
-  //     incedentCategory: "Thiết bị mạng",
-  //     room: "T1005",
-  //     reportTime: "4:30 PM",
-  //     userReport: "hoanh"
-  //   },
-
-  //   {
-  //     index: "3",
-  //     incedentCategory: "Vệ sinh phòng học",
-  //     room: "F305",
-  //     reportTime: "8:00 AM",
-  //     userReport: "vietdv"
-  //   },
-
-  //   {
-  //     index: "4",
-  //     incedentCategory: "Vệ sinh phòng học",
-  //     room: "F305",
-  //     reportTime: "8:00 AM",
-  //     userReport: "vietdv"
-  //   },
-
-  //   {
-  //     index: "5",
-  //     incedentCategory: "Vệ sinh phòng học",
-  //     room: "F305",
-  //     reportTime: "8:00 AM",
-  //     userReport: "vietdv"
-  //   },
-  //   {
-  //     index: "6",
-  //     incedentCategory: "Vệ sinh phòng học",
-  //     room: "F305",
-  //     reportTime: "8:00 AM",
-  //     userReport: "vietdv"
-  //   },
-
-    
-
-   
-  // ];
+  
 
     
   useEffect(() => {
@@ -82,7 +30,6 @@ const NewIncident = () => {
      
     }
   },[number])
-
 
   const renderItem = ({ item, index }) => {
     const formattedDate = moment(item?.date).format('DD-MM-YYYY');
