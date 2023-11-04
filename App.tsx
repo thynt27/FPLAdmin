@@ -8,7 +8,7 @@ import Report from './screen/Report';
 import ReportList from './screen/IT/ReportList';
 import Home from './screen/GV/Home';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Setting from './screen/Setting';
+import Setting from './screen/History';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 

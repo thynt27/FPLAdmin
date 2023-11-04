@@ -11,10 +11,10 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {ICON} from '../constant/Theme';
+import {ICON} from '../../constant/Theme';
 import {Dropdown} from 'react-native-element-dropdown';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import AxiosIntance from '../ultil/AxiosIntance';
+import AxiosIntance from '../../ultil/AxiosIntance';
 
 const AddReport = () => {
   const navigation = useNavigation();
@@ -146,11 +146,10 @@ const AddReport = () => {
             value: incident._id,
           }))}
           value={value}
-          search
           maxHeight={200}
           labelField="label"
           valueField="value"
-          placeholder={!isFocus ? 'Loại sự cố' : '...'}
+          placeholder={!isFocus ? 'Loại sự cố' : 'Loại sự cố'}
           searchPlaceholder="Search..."
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}

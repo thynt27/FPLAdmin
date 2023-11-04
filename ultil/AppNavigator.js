@@ -5,13 +5,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AppContext } from './AppContext';
 import Login from '../screen/Login';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Setting from '../screen/Setting';
-import AddReport from '../screen/AddReport';
-import HomeIT from '../screen/HomeIT';
-import Student from '../screen/Student';
-import Home from '../screen/Home';
+import AddReport from '../screen/GV/AddReport';
+import HomeIT from '../screen/IT/HomeIT';
+import Home from '../screen/GV/Home';
 import DetailReport from '../screen/DetailReport';
 import InProgress from '../screen/InProgress';
+import History from '../screen/History';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -45,8 +45,8 @@ const Main = () => {
             return <AntDesign name="form" size={size} color={color} />;
           } else if (route.name === 'Report List') {
             return <AntDesign name="phone" size={size} color={color} />;
-          } else if (route.name === 'Setting') {
-            return <AntDesign name="setting" size={size} color={color} />;
+          } else if (route.name === 'History') {
+            return <MaterialCommunityIcons name="history" size={size} color={color} />;
           }
 
         },
@@ -57,8 +57,8 @@ const Main = () => {
 
       <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
       <Tab.Screen name="AddReport" component={AddReport} options={{ headerShown: false }} />
-      <Tab.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
-
+      <Tab.Screen name="History" component={History} options={{ headerShown: false }} />
+      
     </Tab.Navigator>
   );
 
@@ -69,6 +69,7 @@ const NewsDetail=()=>{
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name='ReportList' component={Process}></Stack.Screen>
       <Stack.Screen name='DetailReport' component={DetailReport}></Stack.Screen>
+      
     </Stack.Navigator>
   )
 }

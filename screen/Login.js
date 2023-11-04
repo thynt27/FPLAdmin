@@ -14,42 +14,35 @@ const Login = (props) => {
   const [emailuser, setemailuser] = useState("");
   const [passwuser, setpasswuser] = useState("");
   const [role, setRole] = useState("");
-  const {navigation} =props;
-  const {setisLogin,setinforuser, setUserRole} = useContext(AppContext);
-  const loginFPl = async () =>{
+  const { navigation } = props;
+  const { setisLogin, setinforuser, setUserRole } = useContext(AppContext);
+  const loginFPl = async () => {
+    console.log("aaaaa");
     try {
-      const response=await AxiosIntance().post("/user/login",{email:emailuser,password:passwuser});
-      if(response.error==false)
-      {
-        console.log("user",response.data.user);
-        console.log("token",response.data.token);
-        
-        await AsyncStorage.setItem("token",response.data.token);
-        ToastAndroid.show("Đăng nhập thành công ",ToastAndroid.SHORT);
-        setisLogin(true);
-        setinforuser(response.data.user);
 
-        const role = response.data.user.role;
-        setUserRole(role);
-        console.log("USER ROLE: ", role);
+      const response = await AxiosIntance().post("/user/login", { email: emailuser, password: passwuser })
+      console.log("user", response.data.user);
+      console.log("token", response.data.token);
 
-        if(role === 1) {
-          setUserRole(1);
-        }else if(role === 100){
-          setUserRole(100)
-        }
-  
-      }else
-      {
-        ToastAndroid.show("Đăng nhập thất bại",ToastAndroid.SHORT);
-        console.log("aaaa");
+      await AsyncStorage.setItem("token", response.data.token);
+      ToastAndroid.show("Đăng nhập thành công ", ToastAndroid.SHORT);
+      setisLogin(true);
+      setinforuser(response.data.user);
+
+      const role = response.data.user.role;
+      setUserRole(role);
+      console.log("USER ROLE: ", role);
+
+      if (role === 1) {
+        setUserRole(1);
+      } else if (role === 100) {
+        setUserRole(100)
       }
-      
-    } catch (e) {
-      console.log(e);
-      
+
+    } catch (err) {
+      ToastAndroid.show("Đăng nhập thất bại ", ToastAndroid.SHORT);
     }
-    
+
   }
   const data =
     [{ label: 'FPT Polytechnic Hà Nội', value: '1' },
@@ -79,7 +72,7 @@ const Login = (props) => {
 
         <Image style={{ resizeMode: 'contain', justifyContent: 'center', height: 100, width: 200, alignSelf: 'center', top: -80 }} source={require('../assets/img/logofpt.png')} />
 
-        <TextInput style={styles.input} placeholder='Email'  onChangeText={setemailuser} value={emailuser} >
+        <TextInput style={styles.input} placeholder='Email' onChangeText={setemailuser} value={emailuser} >
 
         </TextInput>
 
@@ -90,7 +83,7 @@ const Login = (props) => {
           <TextInput onChangeText={setpasswuser} value={passwuser}
             placeholder="Password"
             secureTextEntry={isSecureEntry}
-            style={{ flex: 1, height : 100 }}
+            style={{ flex: 1, height: 100 }}
 
           />
           <Ionicons
