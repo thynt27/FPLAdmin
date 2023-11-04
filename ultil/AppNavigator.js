@@ -43,7 +43,7 @@ const Main = () => {
             return <AntDesign name='home' size={size} color={color} />;
           } else if (route.name === 'AddReport') {
             return <AntDesign name="form" size={size} color={color} />;
-          } else if (route.name === 'Report List') {
+          } else if (route.name === 'History') {
             return <AntDesign name="phone" size={size} color={color} />;
           } else if (route.name === 'History') {
             return <MaterialCommunityIcons name="history" size={size} color={color} />;

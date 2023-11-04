@@ -33,7 +33,7 @@ const Success = () => {
   const renderItem = ({ item, index }) => {
     const formattedDate = moment(item?.date).format('DD-MM-YYYY');
     return (
-      <View style={[styles.item, { left : 5 ,top: 10, height: 110, width: 350, marginRight: 10, backgroundColor: "#fff", borderWidth: 0.5, borderColor: "#000", elevation: 5 }]}>
+      <View style={[styles.item, { left : 3 ,top: 10, height: 110, width: 350, backgroundColor: "#fff", borderWidth: 0.5, borderColor: "#000", elevation: 5 }]}>
         <View >
           <Text style={{ fontWeight: "700", fontSize: 17, flexWrap: 'wrap', width: 200,color:"#6499E9"}}>{item.incident?.name_incident}</Text>
           <View style={{ flexDirection: 'row' }}>

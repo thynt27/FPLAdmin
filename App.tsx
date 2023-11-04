@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator, BottomTabBar } from '@react-navigation/bottom-tabs';
 import Login from './screen/Login';
 import Report from './screen/Report';
-import ReportList from './screen/IT/ReportList';
 import Home from './screen/GV/Home';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Setting from './screen/History';
