@@ -11,6 +11,7 @@ import HomeIT from '../screen/IT/HomeIT';
 import Home from '../screen/GV/Home';
 import Process from '../screen/IT/Process';
 import DetailReport from '../screen/IT/DetailReport';
+import History from '../screen/GV/History';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +34,7 @@ const Main = () => {
             return <AntDesign name='home' size={size} color={color} />;
           } else if (route.name === 'AddReport') {
             return <AntDesign name="form" size={size} color={color} />;
-          } else if (route.name === 'Report List') {
+          } else if (route.name === 'History') {
             return <AntDesign name="phone" size={size} color={color} />;
           } else if (route.name === 'Setting') {
             return <AntDesign name="setting" size={size} color={color} />;
@@ -47,6 +48,7 @@ const Main = () => {
 
       <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
       <Tab.Screen name="AddReport" component={AddReport} options={{ headerShown: false }} />
+      <Tab.Screen name="History" component={History} options={{ headerShown: false }} />
       <Tab.Screen name="Setting" component={Setting} options={{ headerShown: false }} />
 
     </Tab.Navigator>

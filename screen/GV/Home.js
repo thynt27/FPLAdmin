@@ -14,10 +14,11 @@ const Home = () => {
     const { setnumber } = useContext(AppContext);
 
     const getReportList = async () => {
-        const response = await AxiosIntance().get("/report/get-all");
+        const response = await AxiosIntance().get("/report/get-by-iduser?user=" + inforuser._id);
         console.log(response.report);
         if (response.result) {
             setData(response.report);
+            setnumber(Math.random());
         } else {
             ToastAndroid.show("Lấy data thất bại")
         }
@@ -27,7 +28,7 @@ const Home = () => {
         getReportList();
 
     }, [number]);
-
+    
     const renderItem = ({ item, index }) => {
         const formattedDate = moment(item?.date).format('DD-MM-YYYY');
         let statusColor = '#4287f5'; 

@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator, BottomTabBar } from '@react-navigation/bottom-tabs';
 import Login from './screen/Login';
 import Report from './screen/Report';
-import ReportList from './screen/IT/ReportList';
 import Home from './screen/GV/Home';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Setting from './screen/Setting';
@@ -18,6 +17,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import BottomTabNavigation from './Navigators.js/BottomTabNavigation';
 import { AppContextProvider } from './ultil/AppContext';
 import AppNavigator from './ultil/AppNavigator';
+import History from './screen/GV/History';
 
 
 const Stack = createNativeStackNavigator();
@@ -75,6 +75,7 @@ export default function App() {
     </NavigationContainer>  
 
   </AppContextProvider>
+  // <History/>
  
   );
 }
