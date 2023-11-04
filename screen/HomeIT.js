@@ -8,42 +8,62 @@ import { AppContext } from '../ultil/AppContext';
 import AxiosIntance from '../ultil/AxiosIntance';
 import moment from 'moment';
 
-const Home = () => {
-    const navigation = useNavigation();
-    const [data, setData] = useState([]);
-    const { number, inforUser, setNumber } = useContext(AppContext);
-
-    const getReportList = async () => {
-        const response = await AxiosIntance().get("/report/get-all");
-        console.log(response.report);
-        if (response.result) {
-            setData(response.report);
-        } else {
-            ToastAndroid.show("Lấy data thất bại")
-        }
+const HomeIT = () => {
+  const navigation = useNavigation();
+  const [data, setData] = useState([]);
+  const {number,inforuser}=useContext(AppContext);
+  const {setnumber}=useContext(AppContext);
+  
+  const getReportList = async () => {
+    const response = await AxiosIntance().get("/report/get-all");
+    console.log(response.report);
+    if (response.result) {
+      setData(response.report);
+    } else {
+      ToastAndroid.show("Lấy data thất bại")
     }
-    useEffect(() => {
+  }
+  useEffect(() => {
+    
+    getReportList();
+  
+  },[number])
+    // const data = [
+    //     {
+    //         index: "1",
+    //         incedentCategory: "Sự cố về cơ sở vật chất",
+    //         incedentStatus: "Yêu cầu",
+    //         incedentTime: "9:20 AM",
 
-        getReportList();
-
-    }, [number]);
-
-
+    //     },
+    //     {
+    //         index: "2",
+    //         incedentCategory: "Sự cố về thiết bị mạng",
+    //         incedentStatus: "Yêu cầu",
+    //         incedentTime: "4:30 PM",
+    //     },
+    //     {
+    //         index: "3",
+    //         incedentCategory: "Vệ sinh phòng học",
+    //         incedentStatus: "Yêu cầu",
+    //         incedentTime: "8:00 AM",
+    //     }
+    // ]
     const renderItem = ({ item, index }) => {
         const formattedDate = moment(item?.date).format('DD-MM-YYYY');
         return (
-            <TouchableOpacity onPress={() => navigation.navigate('DetailReport')} style={[styles.item, { left: 10, top: 10, height: 150, width: 300, marginRight: 10, backgroundColor: "#eef5ff", borderWidth: 1, borderColor: "#99bcf1", elevation: 5 }]}>
-                <View style={[styles.backgroundIcon, { backgroundColor: "#fff", alignSelf: "flex-end", width: 50, height: 50 , top : -5 }]}>
-                    <Image source={require("../../assets/img/AvatarRP.png")} />
+            <TouchableOpacity style={[styles.item, { left: 10, top : 10, height: 150, width: 300, marginRight : 10, backgroundColor: "#eef5ff" , borderWidth : 1, borderColor : "#99bcf1", elevation : 5 }]}>
+                <View style={[styles.backgroundIcon, { backgroundColor: "#fff", alignSelf: "flex-end", width: 70, height: 70 }]}>
+                    <Image source={require("../assets/img/AvatarRP.png")} />
                 </View>
-                <Text style={{ fontWeight: "700", fontSize: 20, flexWrap: 'wrap', top: -50, width: 180 }}>{item.incident?.name_incident}</Text>
+                <Text style={{ fontWeight: "700", fontSize: 20, flexWrap: 'wrap', top: -50, width: 150 }}>{item.incident?.name_incident}</Text>
                 <View style={{ flexDirection: 'row', top: -30 }}>
                     <Text style={{ fontSize: 17 }}>Trạng thái: </Text>
-                    <Text style={{ fontSize: 17, color: "#6499e9", fontWeight: "700" , position : "relative" , left : 70 }}>{item.status_report?.name_status}</Text>
+                    <Text style={{ left: 110 , fontSize : 15, color : "#6499e9"  ,fontWeight : "500",width:100}}>{item.status_report?.name_status}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', top: -20 }}>
                     <Text style={{ fontSize: 17 }}>Yêu cầu lúc: </Text>
-                    <Text style={{ fontSize: 17,left : 50 }}>{formattedDate}</Text>
+                    <Text style={{fontSize : 15  , left: 100 }}>{formattedDate}</Text>
                 </View>
 
             </TouchableOpacity>
@@ -108,70 +128,70 @@ const Home = () => {
     )
 }
 
-export default Home
+export default HomeIT
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#0E3B65'
-    },
-    nameView: {
-        left: 10,
-        top: 10,
+  container: {
+    flex: 1,
+    backgroundColor: '#0E3B65'
+},
+nameView: {
+    left: 10,
+    top: 10,
 
-    },
-    name: {
-        color: "#fff",
-        fontSize: 20,
-    },
-    backgroundRadius: {
-        backgroundColor: '#fff',
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        width: "100%",
-        height: "100%",
-        top: 50,
-        alignSelf: 'center'
-    },
-    title: {
-        fontSize: 30,
-        fontWeight: "700",
-        textAlign: 'center',
-        top: 20,
-        color: "#000"
-    },
-    backgroundOption: {
-        borderRadius: 20,
-        width: 110,
-        height: 135,
-        top: 50,
-        paddingHorizontal: 5
-    },
+},
+name: {
+    color: "#fff",
+    fontSize: 20,
+},
+backgroundRadius: {
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    width: "100%",
+    height: "100%",
+    top: 50,
+    alignSelf: 'center'
+},
+title: {
+    fontSize: 30,
+    fontWeight: "700",
+    textAlign: 'center',
+    top: 20,
+    color: "#000"
+},
+backgroundOption: {
+    borderRadius: 20,
+    width: 110,
+    height: 135,
+    top: 50,
+    paddingHorizontal: 5
+},
 
-    icon :{
-        width : 30,
-        height : 30
-    },
+icon :{
+    width : 30,
+    height : 30
+},
 
-    backgroundIcon: {
-        top: 10,
-        width: 45,
-        height: 45,
-        borderRadius: 100 / 2,
-        justifyContent: "center",
-        alignItems: "center",
-        alignSelf: "center",
-    },
-    text: { top: 20, textAlign: "center", color: "white", fontWeight: "600", fontSize: 20 },
-    item: {
-        borderWidth: 0.5,
-        padding: 8,
-        borderRadius: 20,
-        justifyContent: "center",
-    },
-    flatList : {
-        top : 100,
-        marginRight : 10,
-        left : 10
-    }
+backgroundIcon: {
+    top: 10,
+    width: 45,
+    height: 45,
+    borderRadius: 100 / 2,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+},
+text: { top: 20, textAlign: "center", color: "white", fontWeight: "600", fontSize: 20 },
+item: {
+    borderWidth: 0.5,
+    padding: 8,
+    borderRadius: 20,
+    justifyContent: "center",
+},
+flatList : {
+    top : 100,
+    marginRight : 10,
+    left : 10
+}
 })
