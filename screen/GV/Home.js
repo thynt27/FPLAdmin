@@ -62,7 +62,7 @@ const Home = () => {
             }
         }
         return (
-            <TouchableOpacity onPress={() => navigation.navigate('DetailRpUser')} style={[styles.item, { alignSelf: 'center', marginVertical: 10, height: 100, width: '80%', backgroundColor: "white", borderWidth: 1, borderColor: "#99bcf1", elevation: 5 }]}>
+            <TouchableOpacity onPress={() => navigation.navigate('Detail3',{id:item?._id})} style={[styles.item, { alignSelf: 'center', marginVertical: 10, height: 100, width: '80%', backgroundColor: "white", borderWidth: 1, borderColor: "#99bcf1", elevation: 5 }]}>
                 <View style={{ flexDirection: 'row' }}>
                     <View style={{ width: '80%' }} >
                         <Text style={{ fontWeight: '600', fontSize: 20, color: '#0E3B65' }}>{item.incident?.name_incident}</Text>

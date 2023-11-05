@@ -9,12 +9,13 @@ import {
   PermissionsAndroid,
   ToastAndroid,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ICON} from '../../constant/Theme';
 import {Dropdown} from 'react-native-element-dropdown';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import AxiosIntance from '../../ultil/AxiosIntance';
+import { AppContext } from '../../ultil/AppContext';
 
 const AddReport = () => {
   const navigation = useNavigation();
@@ -22,6 +23,9 @@ const AddReport = () => {
   const [incidents, setIncidents] = useState([]);
   const [isFocus, setIsFocus] = useState(false);
   const [image, setImage] = useState(null);
+  const [room, setroom] = useState(null);
+  const {inforuser,setnumber}=useContext(AppContext);
+  const [description, setdescription] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
   const [isSuccessModalVisible, setSuccessModalVisible] = useState(false);
 
@@ -29,7 +33,17 @@ const AddReport = () => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+  const close =()=>{
+    setImage(null);
+    setValue(null);
+    setdescription('')
+    setroom('');
+    setnumber(Math.random);
+    
 
+    setSuccessModalVisible(!isSuccessModalVisible);
+    navigation.navigate("Home");
+  }
   //api
   useEffect(() => {
     const getIncidentList = async () => {
@@ -116,9 +130,13 @@ const AddReport = () => {
     //modal notice
     setSuccessModalVisible(!isSuccessModalVisible);
     const response = await AxiosIntance().post('/report/add-new', {
-      id_incident: value,
-      description: 'test',
+      room:room,
       image: image,
+      incident: value,
+      description:description ,
+      user:inforuser._id
+      
+     
     });
     console.log(response);
   };
@@ -134,7 +152,7 @@ const AddReport = () => {
         </View>
       </View>
       <View style={{paddingLeft: 22}}>
-        <TextInput style={styles.input} placeholder="Phòng"></TextInput>
+        <TextInput value ={room} onChangeText={setroom} style={styles.input} placeholder="Phòng"></TextInput>
         <Dropdown
           style={[styles.dropdown, isFocus && {borderColor: 'black'}]}
           placeholderStyle={styles.placeholderStyle}
@@ -157,7 +175,8 @@ const AddReport = () => {
             setValue(item.value);
             setIsFocus(false);
           }}></Dropdown>
-        <TextInput
+        <TextInput onChangeText={text => setdescription(text)}
+        value={description}
           style={[styles.input, {height: 130, textAlignVertical: 'top'}]}
           placeholder="Mô tả"></TextInput>
         <Text style={[styles.text18, {marginTop: 20}]}>Hình ảnh đính kèm</Text>
@@ -248,7 +267,7 @@ const AddReport = () => {
                 alignItems: 'center',
                 marginTop: 20,
               }}
-              onPress={() => navigation.navigate('Home')}>
+              onPress={close}>
               <Text style={styles.text16}>Đóng</Text>
             </TouchableOpacity>
           </View>
