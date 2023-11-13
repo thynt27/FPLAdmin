@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Modal, PermissionsAndroid, ToastAndroid } from 'react-native'
 import React, { useState, useEffect, useContext } from 'react'
 import { useNavigation } from "@react-navigation/native";
-import { ICON } from '../constant/Theme'
+import { ICON } from '../../constant/Theme'
 import { Dropdown } from 'react-native-element-dropdown';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import AxiosIntance from '../ultil/AxiosIntance';
-import { AppContext } from '../ultil/AppContext';
+import AxiosIntance from '../../ultil/AxiosIntance';
+import { AppContext } from '../../ultil/AppContext';
 
 
 const AddReport = () => {
