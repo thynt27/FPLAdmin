@@ -1,37 +1,43 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Modal, PermissionsAndroid, ToastAndroid } from 'react-native'
 import React, { useState, useEffect, useContext } from 'react'
 import { useNavigation } from "@react-navigation/native";
-import { ICON } from '../../constant/Theme'
+import { ICON } from '../constant/Theme'
 import { Dropdown } from 'react-native-element-dropdown';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import AxiosIntance from '../../ultil/AxiosIntance';
-import { AppContext } from '../../ultil/AppContext';
+import AxiosIntance from '../ultil/AxiosIntance';
+import { AppContext } from '../ultil/AppContext';
 
 
 const AddReport = () => {
     const navigation = useNavigation();
-    const [value, setValue] = useState(null);
-    const [isFocus, setIsFocus] = useState(false);
-    const [isModalVisible, setModalVisible] = useState(false);
-    const [isSuccessModalVisible, setSuccessModalVisible] = useState(false);
-
-    const [room, setRoom] = useState("");
     const [incidents, setIncidents] = useState([]);
+    const [selectedValue, setSelectedValue] = useState(null);
+    const [room, setRoom] = useState("")
+    const [isFocus, setIsFocus] = useState(false);
     const [image, setImage] = useState(null);
     const {inforuser,number,setnumber,userRole} = useContext(AppContext);
     const [description, setDescription] = useState("");
-
-
-
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [isSuccessModalVisible, setSuccessModalVisible] = useState(false);
+    const click=()=>{
+        console.log("aaaaa",selectedValue);
+        console.log("room",room);
+        console.log("description",description);
+        console.log("inforuser",inforuser._id);
+    }
+    const close=()=>{
+        if(userRole==1){
+            navigation.navigate("HomeIT");
+        }else if(userRole==100)
+        {
+            navigation.navigate("HomeIT");
+        }
+    }
     //modal camera
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
 
-    //modal notice
-    const toggleSuccessModal = () => {
-        setSuccessModalVisible(!isSuccessModalVisible);
-    };
 
     //api
     useEffect(() => {
@@ -44,6 +50,7 @@ const AddReport = () => {
         return () => {
         }
     }, []);
+
 
     // Chụp ảnh
     const requestCameraPermission = async () => {
@@ -73,6 +80,8 @@ const AddReport = () => {
         }
     };
 
+
+
     // Chọn ảnh từ thư viện
     const chooseImage = () => {
         const options = {
@@ -93,34 +102,25 @@ const AddReport = () => {
     };
 
     const addReport = async () => {
-        try {
-            const response = await AxiosIntance().post("/report/add-new", {
-                room: room,
-                image: image,
-                description: description,
-                incident: value,
-                user: inforuser._id,
-            });
-
-            if (response.result == true) {
-                ToastAndroid.show("Đăng tin thành công!", ToastAndroid.SHORT);
-                console.log(response);
-                navigation.navigate("Home");
-            } else {
-                ToastAndroid.show("Fail!", ToastAndroid.SHORT);
-                console.log("Thất bại");
-            }
-        } catch (error) {
-            console.log("Thất bại");
-            console.error(error);
-        }
-    };
+        //modal notice
+        setSuccessModalVisible(!isSuccessModalVisible);
+        const response = await AxiosIntance().post("/report/add-new", {
+           room:room,
+            image: image,
+            description:description,
+            incident:selectedValue,
+            user:inforuser._id
+        });
+        console.log(response);
+        setnumber(Math.random)
+        
+    }   
 
     return (
         <View style={{ backgroundColor: 'white', flex: 1 }}>
             <View style={styles.topNav}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                    <Image source={ICON.Back} />
+                <TouchableOpacity>
+                    <Image source={ICON.Back} style={{}}></Image>
                 </TouchableOpacity>
                 <View style={{ flex: 1, alignItems: 'center' }}>
                     <Text style={styles.text22}>Báo cáo sự cố</Text>
@@ -128,34 +128,25 @@ const AddReport = () => {
             </View>
             <View style={{ paddingLeft: 22 }}>
                 <TextInput style={styles.input}
-                    placeholder='Phòng'
-                    onChangeText={setRoom}
-                >
+                    placeholder='Phòng' onChangeText={setRoom} >
                 </TextInput>
+       
                 <Dropdown
-                    style={[styles.dropdown, isFocus && { borderColor: 'black' }]}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    inputSearchStyle={styles.inputSearchStyle}
-                    iconStyle={styles.iconStyle}
-                    data={incidents.map(incident => ({ label: incident.name_incident, value: incident._id }))}
-                    value={value}
-                    search
-                    maxHeight={200}
-                    labelField="label"
-                    valueField="value"
-                    placeholder={!isFocus ? 'Loại sự cố' : '...'}
-                    searchPlaceholder="Search..."
-                    onFocus={() => setIsFocus(true)}
-                    onBlur={() => setIsFocus(false)}
-                    onChange={item => {
-                        setValue(item.value);
-                        setIsFocus(false);
+                   style={styles.dropdown}
+                   data={incidents}
+                   labelField="name_incident"
+                   valueField="_id"
+                   placeholder={!isFocus ? 'Sự cố đang gặp phải ' : 'Sự cố đang gặp phải'}
+                   value={selectedValue}
+                   onFocus={() => setIsFocus(true)}
+                   onBlur={() => setIsFocus(false)}
+                   onChange={item => {
+                     setSelectedValue(item._id);
+                     setIsFocus(false);
                     }}>
                 </Dropdown>
                 <TextInput style={[styles.input, { height: 130, textAlignVertical: 'top' }]}
-                    placeholder='Mô tả'
-                    onChangeText={setDescription}
+                    placeholder='Mô tả' onChangeText={setDescription}
                 >
                 </TextInput>
                 <Text style={[styles.text18, { marginTop: 20 }]}>Hình ảnh đính kèm</Text>
@@ -171,7 +162,7 @@ const AddReport = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={{ width: '90%', height: 45, backgroundColor: '#4287f5', borderRadius: 8, justifyContent: 'center', alignItems: 'center', marginTop: 50 }}
-                    onPress={() => addReport()}>
+                    onPress={addReport}>
                     <Text style={{ fontSize: 18, color: 'white', fontWeight: '500' }}>Gửi yêu cầu</Text>
                 </TouchableOpacity>
             </View>
@@ -186,9 +177,9 @@ const AddReport = () => {
                 <View style={styles.modalContainer}>
                     {/* Add your camera and gallery buttons here */}
                     <TouchableOpacity
-                        style={{ marginTop: 0, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 0.6, width: '100%' }}
+                        style={{ marginTop: 10, justifyContent: 'center', alignItems: 'center', borderBottomWidth: 0.6, width: '100%' }}
                         onPress={() => requestCameraPermission()}>
-                        <Text style={[styles.text20, { color: '#4287f5', marginBottom: 10 }]}>Chụp ảnh</Text>
+                        <Text style={[styles.text20, { color: '#4287f5' }]}>Chụp ảnh</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}
                         onPress={() => chooseImage()}>
@@ -196,7 +187,7 @@ const AddReport = () => {
                     </TouchableOpacity>
                 </View>
             </Modal>
-            {/* <Modal
+            <Modal
                 animationType="fade"
                 transparent={true}
                 visible={isSuccessModalVisible}>
@@ -208,13 +199,12 @@ const AddReport = () => {
                             <Text style={{ textAlign: 'center', fontSize: 16, marginTop: 5 }}>Đã gửi yêu cầu của bạn</Text>
                         </View>
                         <TouchableOpacity style={{ width: '90%', height: 40, backgroundColor: '#4287f5', borderRadius: 8, justifyContent: 'center', alignItems: 'center', marginTop: 20 }}
-                            onPress={() => navigation.navigate('Home')}>
+                            onPress={close}>
                             <Text style={styles.text16}>Đóng</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-            </Modal> */}
-
+            </Modal>
         </View>
     )
 }
@@ -295,7 +285,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         alignSelf: 'center',
         width: '100%',
-        height: 125,
+        height: 130,
         bottom: 0,
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,

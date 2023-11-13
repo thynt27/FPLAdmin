@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, ToastAndroid, Alert } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Dropdown } from 'react-native-element-dropdown';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { PermissionsAndroid } from 'react-native';
@@ -7,8 +7,10 @@ import ImageView from 'react-native-image-view';
 import { useNavigation } from '@react-navigation/native'
 import BottomTabNavigation from '../Navigators.js/BottomTabNavigation';
 import AxiosIntance from "../ultil/AxiosIntance";
+import { AppContext } from '../ultil/AppContext';
 
 const Report = () => {
+  const {inforuser} = useContext(AppContext);
   const data =
     [{ label: 'Cơ sở vật chất', value: '1' },
     { label: 'Thiết bị mạng', value: '2' },
@@ -24,7 +26,9 @@ const Report = () => {
   const [isFocus, setIsFocus] = useState(false);
   const [room, setRoom] = useState("");
   const [description, setDescription] = useState("")
-
+    const click =()=>{
+      console.log(value);
+    }
   useEffect(() => {
     const getIncidentList = async () => {
       const response = await AxiosIntance().get("/incident/get-all");
@@ -141,7 +145,7 @@ const Report = () => {
 
   }
   const addReport = async () => {
-    const response = await AxiosIntance().post("/report/add-new", { room: room, description: description, image: imageSource, name_incident:value });
+    const response = await AxiosIntance().post("/report/add-new", { room: room, description: description, image: imageSource, name_incident:value,user: inforuser._id});
     if (response.result) {
       ToastAndroid.show("Đăng tin thành công", ToastAndroid.SHORT);
     }
@@ -173,7 +177,7 @@ const Report = () => {
         style={styles.input}
         data={dataNe}
         labelField="name_incident"
-        valueField="-id"
+        valueField="_id"
         placeholder={!isFocus ? 'Sự cố đang gặp phải ' : 'Sự cố đang gặp phải'}
         value={value}
         onFocus={() => setIsFocus(true)}
@@ -208,7 +212,7 @@ const Report = () => {
 
       </TouchableOpacity>
 
-      <TouchableOpacity style={{ top: 70, left: 50, backgroundColor: '#0e3b65', width: 300, height: 40, borderRadius: 10 }} onPress={addReport}>
+      <TouchableOpacity style={{ top: 70, left: 50, backgroundColor: '#0e3b65', width: 300, height: 40, borderRadius: 10 }} onPress={click}>
         <Text style={{ textAlign: 'center', color: '#fff', padding: 10 }}>Gửi yêu cầu</Text>
       </TouchableOpacity>
 

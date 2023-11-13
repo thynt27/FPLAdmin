@@ -64,18 +64,7 @@ const Login = (props) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
-  const radioButtons = useMemo(() => ([
-    {
-      id: '1', // acts as primary key, should be unique and non-empty string
-      label: 'Giảng viên',
-      value: 'option1'
-    },
-    {
-      id: '2',
-      label: 'IT',
-      value: 'option2'
-    }
-  ]), []);
+
 
   const [selectedId, setSelectedId] = useState();
   const [isSecureEntry, setIsSecureEntry] = useState(true);
@@ -133,13 +122,6 @@ const Login = (props) => {
         <TouchableOpacity>
           <Text style={{ color: '#000', fontWeight: 'bold', top: -50, left: 70 }}>Quên mật khẩu </Text>
         </TouchableOpacity>
-
-        {/* <RadioGroup
-          radioButtons={radioButtons}
-          onPress={setSelectedId}
-          selectedId={selectedId}
-          containerStyle={{ flexDirection: 'row', top: -40, justifyContent: "space-evenly" }}
-        /> */}
 
         <TouchableOpacity style={[styles.login, { flexDirection: 'row', backgroundColor: "#fda600" }]} onPress={loginFPl} >
           <Text style={{ color: '#fff', fontWeight: 'bold' }}>Đăng nhập</Text>
