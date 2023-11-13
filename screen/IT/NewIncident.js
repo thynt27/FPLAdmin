@@ -7,18 +7,19 @@ import { useNavigation } from '@react-navigation/native';
 const NewIncident = () => {
   const {inforuser,number} = useContext(AppContext);
   const [dataNe, setdataNe] = useState([]);
-  const [reload, setreload] = useState(0);
+  const [reload, setReload] = useState(0);
+  
   const navigation=useNavigation();
   // const clickItem=()=>{
   //   navigation.navigate("DetailReport",id: item?_id);
   // }
-  
+
 
     
   useEffect(() => {
     const getReportList = async () => {
       const response = await AxiosIntance().get("/report/get-by-idstatus?status=" + "653b8409900c3796a66d6640");
-      console.log(response.report);
+      console.log("Man hinh new incident",response.report);
       if (response.result) {
         setdataNe(response.report);
       } else {
@@ -27,14 +28,16 @@ const NewIncident = () => {
     }
     getReportList();
     return () => {
-     
+      
     }
   },[number])
+
+
 
   const renderItem = ({ item, index }) => {
     const formattedDate = moment(item?.date).format('DD-MM-YYYY');
     return (
-      <View style={[styles.item, { left : 5 ,top: 10, height: 90, width: 350, marginRight: 10, backgroundColor: "#fff", borderWidth: 0.75, borderColor: "#000", elevation: 5 }]}>
+      <View style={[styles.item, { left : 5 ,top: 10, height: 90, width: 350, marginRight: 10, backgroundColor: "#fff", borderWidth: 1, borderColor: "#000", elevation: 5, borderRadius : 5 }]}>
         <View style = {{top : 15}}>
           <Text style={{fontWeight: "700", fontSize: 17, flexWrap: 'wrap', width: 200,color:"#6499E9"}}>{item.incident?.name_incident}</Text>
           <View style={{ flexDirection: 'row' }}>
@@ -54,7 +57,7 @@ const NewIncident = () => {
           </View>
         </View>
    
-        <TouchableOpacity onPress={()=>{navigation.navigate("DetailReport",{id :item?._id});setreload(+1)}}  style={{justifyContent : "flex-end", alignSelf : "flex-end", top : -40, right : 10, borderWidth : 1, borderColor : "green", height : 30, width : 80, borderRadius : 5}}>
+        <TouchableOpacity onPress={()=>{navigation.navigate("DetailReport",{id :item?._id});setReload(+1)}}  style={{justifyContent : "flex-end", alignSelf : "flex-end", top : -40, right : 10, borderWidth : 1, borderColor : "green", height : 30, width : 80, borderRadius : 5}}>
           <Text style={{textAlign : "center", padding : 5, color : "green"}}>Tiếp nhận</Text>
       </TouchableOpacity>
       

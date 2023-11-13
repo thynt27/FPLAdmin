@@ -30,11 +30,13 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    
   },
   text22: {
     fontSize: 22,
     color: 'black',
-    fontWeight: '500'
+    fontWeight: '500',
+    left : 10
   },
 })

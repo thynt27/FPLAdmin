@@ -8,62 +8,42 @@ import { AppContext } from '../../ultil/AppContext';
 import AxiosIntance from '../../ultil/AxiosIntance';
 import moment from 'moment';
 
-const Home = () => {
-    const navigation = useNavigation();
-  const [data, setData] = useState([]);
-  const {number,inforuser}=useContext(AppContext);
-  const {setnumber}=useContext(AppContext);
-  
-  const getReportList = async () => {
-    const response = await AxiosIntance().get("/report/get-all");
-    console.log(response.report);
-    if (response.result) {
-      setData(response.report);
-    } else {
-      ToastAndroid.show("Lấy data thất bại")
-    }
-  }
-  useEffect(() => {
-    
-    getReportList();
-  
-  },[number])
-    // const data = [
-    //     {
-    //         index: "1",
-    //         incedentCategory: "Sự cố về cơ sở vật chất",
-    //         incedentStatus: "Yêu cầu",
-    //         incedentTime: "9:20 AM",
+const HomeIT = () => {
+    const navigation=useNavigation();
+    const [data, setData] = useState([]);
+    const { number, inforUser, setNumber } = useContext(AppContext);
 
-    //     },
-    //     {
-    //         index: "2",
-    //         incedentCategory: "Sự cố về thiết bị mạng",
-    //         incedentStatus: "Yêu cầu",
-    //         incedentTime: "4:30 PM",
-    //     },
-    //     {
-    //         index: "3",
-    //         incedentCategory: "Vệ sinh phòng học",
-    //         incedentStatus: "Yêu cầu",
-    //         incedentTime: "8:00 AM",
-    //     }
-    // ]
+    const getReportList = async () => {
+        const response = await AxiosIntance().get("/report/get-all");
+        console.log(response.report);
+        if (response.result) {
+            setData(response.report);
+        } else {
+            ToastAndroid.show("Lấy data thất bại")
+        }
+    }
+    useEffect(() => {
+
+        getReportList();
+
+    }, [number]);
+
+
     const renderItem = ({ item, index }) => {
         const formattedDate = moment(item?.date).format('DD-MM-YYYY');
         return (
-            <TouchableOpacity style={[styles.item, { left: 10, top : 10, height: 150, width: 300, marginRight : 10, backgroundColor: "#eef5ff" , borderWidth : 1, borderColor : "#99bcf1", elevation : 5 }]}>
-                <View style={[styles.backgroundIcon, { backgroundColor: "#fff", alignSelf: "flex-end", width: 70, height: 70 }]}>
+            <TouchableOpacity onPress={()=>{navigation.navigate("DetailReport",{id :item?._id})}}  style={[styles.item, { left: 10, top: 10, height: 150, width: 300, marginRight: 10, backgroundColor: "#eef5ff", borderWidth: 1, borderColor: "#99bcf1", elevation: 5 }]}>
+                <View style={[styles.backgroundIcon, { backgroundColor: "#fff", alignSelf: "flex-end", width: 50, height: 50 , top : -5 }]}>
                     <Image source={require("../../assets/img/AvatarRP.png")} />
                 </View>
-                <Text style={{ fontWeight: "700", fontSize: 20, flexWrap: 'wrap', top: -50, width: 150 }}>{item.incident?.name_incident}</Text>
+                <Text style={{ fontWeight: "700", fontSize: 20, flexWrap: 'wrap', top: -50, width: 180 }}>{item.incident?.name_incident}</Text>
                 <View style={{ flexDirection: 'row', top: -30 }}>
                     <Text style={{ fontSize: 17 }}>Trạng thái: </Text>
-                    <Text style={{ left: 110 , fontSize : 15, color : "#6499e9"  ,fontWeight : "500",width:100}}>{item.status_report?.name_status}</Text>
+                    <Text style={{ fontSize: 17, color: "#6499e9", fontWeight: "700" , position : "relative" , left : 70 }}>{item.status_report?.name_status}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', top: -20 }}>
                     <Text style={{ fontSize: 17 }}>Yêu cầu lúc: </Text>
-                    <Text style={{fontSize : 15  , left: 100 }}>{formattedDate}</Text>
+                    <Text style={{ fontSize: 17,left : 50 }}>{formattedDate}</Text>
                 </View>
 
             </TouchableOpacity>
@@ -128,7 +108,7 @@ const Home = () => {
     )
 }
 
-export default Home
+export default HomeIT
 
 const styles = StyleSheet.create({
     container: {

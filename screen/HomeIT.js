@@ -2,10 +2,10 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react
 import React,{useContext, useEffect, useState} from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import { useNavigation } from "@react-navigation/native";
-import BottomTabNavigation from '../Navigators.js/BottomTabNavigation';
+import BottomTabNavigation from '../../Navigators.js/BottomTabNavigation';
 import { WINDOW_WIDTH } from '@gorhom/bottom-sheet';
-import { AppContext } from '../ultil/AppContext';
-import AxiosIntance from '../ultil/AxiosIntance';
+import { AppContext } from '../../ultil/AppContext';
+import AxiosIntance from '../../ultil/AxiosIntance';
 import moment from 'moment';
 
 const HomeIT = () => {
@@ -72,7 +72,7 @@ const HomeIT = () => {
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row', top: 20, left: 10 }}>
-                <Image style={{top : 5,width:50,height:50,borderRadius:20}} source={require("../assets/img/avata2.jpg")} />
+                <Image style={{top : 5,width:50,height:50,borderRadius:20}} source={require("../../assets/img/avata2.jpg")} />
                 <View style={styles.nameView}>
                     <Text style={styles.name}>Xin chào,</Text>
                     <Text style={[styles.name, { fontWeight: "700" }]}>Nguyễn Hữu Hòa</Text>
@@ -85,7 +85,7 @@ const HomeIT = () => {
                     <TouchableOpacity onPress={() => navigation.navigate('Report')} >
                         <LinearGradient colors={['#D9D9D9', '#4265a8', '#fff']} start={{ x: 0 ,y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
                             <View style={[styles.backgroundIcon, { backgroundColor: "#a6dff1" , padding : 10 }]}>
-                                <Image style={styles.icon} source={require("../assets/img/Vector.png")} />
+                                <Image style={styles.icon} source={require("../../assets/img/Vector.png")} />
                             </View>
                             <Text style={styles.text}>Báo cáo sự cố </Text>
                         </LinearGradient>
@@ -93,7 +93,7 @@ const HomeIT = () => {
                     <TouchableOpacity>
                         <LinearGradient colors={['#D9D9D9', '#268740', '#fff']} start={{ x: 0 ,y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
                             <View style={[styles.backgroundIcon, { backgroundColor: "#a5ebb8"  , padding : 10 }]}>
-                                <Image style={styles.icon} source={require("../assets/img/Vector2.png")} />
+                                <Image style={styles.icon} source={require("../../assets/img/Vector2.png")} />
                             </View>
                             <Text style={styles.text}>Hỗ trợ CNTT</Text>
                         </LinearGradient>
@@ -101,7 +101,7 @@ const HomeIT = () => {
                     <TouchableOpacity>
                         <LinearGradient colors={['#D9D9D9', '#fd8900', '#fff']} start={{ x: 0 ,y: 2 }} end={{ x: 1, y: -.5 }} style={styles.backgroundOption}>
                             <View style={[styles.backgroundIcon, { backgroundColor: "#ffe97e"  , padding : 10 }]}>
-                                <Image style={styles.icon} source={require("../assets/img/Vector3.png")} />
+                                <Image style={styles.icon} source={require("../../assets/img/Vector3.png")} />
                             </View>
                             <Text style={styles.text}>Phòng và hội trường</Text>
                         </LinearGradient>

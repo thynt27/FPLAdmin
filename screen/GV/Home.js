@@ -6,6 +6,7 @@ import { WINDOW_HEIGHT, WINDOW_WIDTH } from '@gorhom/bottom-sheet';
 import { AppContext } from '../../ultil/AppContext';
 import AxiosIntance from '../../ultil/AxiosIntance';
 import moment from 'moment';
+import { RefreshControl } from 'react-native';
 
 const Home = () => {
     const navigation = useNavigation();
@@ -13,12 +14,24 @@ const Home = () => {
     const { number, inforuser } = useContext(AppContext);
     const { setnumber } = useContext(AppContext);
 
+    const [refreshing, setRefreshing] = useState(false);
+
+    const handleRefresh = async () => {
+        setRefreshing(true);
+        await getReportList();
+        setRefreshing(false);
+    }
+
     const getReportList = async () => {
-        const response = await AxiosIntance().get("/report/get-by-iduser?user=" + inforuser._id);
-        console.log(response.report);
+        const response = await AxiosIntance().get("/report/get-all");
+        console.log("Man hinh home cua User", response.report);
         if (response.result) {
-            setData(response.report);
-            setnumber(Math.random());
+            const formattedData = response.report.map(item => ({
+                ...item,
+                addedDate: moment(item.date).format('YYYY-MM-DD')
+            }));
+            setData(formattedData);
+
         } else {
             ToastAndroid.show("Lấy data thất bại")
         }
@@ -31,12 +44,12 @@ const Home = () => {
     
     const renderItem = ({ item, index }) => {
         const formattedDate = moment(item?.date).format('DD-MM-YYYY');
-        let statusColor = '#4287f5'; 
+        let statusColor = '#4287f5';
 
         if (item.status_report) {
             switch (item.status_report._id) {
                 case '653b8409900c3796a66d6640':
-                    statusColor = '#4287f5'; 
+                    statusColor = '#4287f5';
                     break;
                 case '653b843c900c3796a66d6641':
                     statusColor = 'orange';
@@ -49,7 +62,7 @@ const Home = () => {
             }
         }
         return (
-            <TouchableOpacity style={[styles.item, { alignSelf: 'center', marginVertical: 10, height: 100, width: '80%', backgroundColor: "white", borderWidth: 1, borderColor: "#99bcf1", elevation: 5 }]}>
+            <TouchableOpacity onPress={() => navigation.navigate('Detail3',{id:item?._id})} style={[styles.item, { alignSelf: 'center', marginVertical: 10, height: 100, width: '80%', backgroundColor: "white", borderWidth: 1, borderColor: "#99bcf1", elevation: 5 }]}>
                 <View style={{ flexDirection: 'row' }}>
                     <View style={{ width: '80%' }} >
                         <Text style={{ fontWeight: '600', fontSize: 20, color: '#0E3B65' }}>{item.incident?.name_incident}</Text>
@@ -68,13 +81,20 @@ const Home = () => {
             </TouchableOpacity >
         )
     };
+
+
+    const sortedData = [...data].sort((a, b) => {
+        2
+        return moment(b.addedDate, 'YYYY-MM-DD').diff(moment(a.addedDate, 'YYYY-MM-DD'));
+    });
+
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row', top: 20, left: 10 }}>
                 <Image style={{ top: 5 }} source={require("../../assets/img/avatar.png")} />
                 <View style={styles.nameView}>
                     <Text style={styles.name}>Xin chào,</Text>
-                    <Text style={[styles.name, { fontWeight: "700" }]}>Nguyễn Văn T</Text>
+                    <Text style={[styles.name, { fontWeight: "700" }]}>Nguyễn Văn Trỗi</Text>
                 </View>
             </View>
 
@@ -112,10 +132,18 @@ const Home = () => {
                     <Text style={{ marginLeft: 20, fontSize: 20, fontWeight: "700", color: "#000" }}>Thông báo</Text>
                     <FlatList
                         style={styles.flatList}
-                        data={data}
+                        data={sortedData}
                         vertical
                         renderItem={renderItem}
                         keyExtractor={item => item._id}
+                        showsVerticalScrollIndicator={false}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={handleRefresh}
+                            />
+                        }
+
                     />
                 </View>
             </View>
