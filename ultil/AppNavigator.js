@@ -9,7 +9,7 @@ import AddReport from '../screen/GV/AddReport';
 import Home from '../screen/GV/Home';
 import DetailReport from '../screen/IT/DetailReport';
 import InProgress from '../screen/InProgress';
-import History from '../screen/History';
+import History from '../screen/GV/History';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Detail3 from '../screen/Detail3';
 import ReportList from '../screen/ReportList';
