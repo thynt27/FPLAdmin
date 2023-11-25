@@ -43,7 +43,7 @@ const DetailReport = (props) => {
             if (response.result === true) {
                 //lấy dữ liệu thành công
                 setData(response.report);
-                setImageSource(response.image);
+                setImageSource(response?.report?.image);
 
             } else {
                 ToastAndroid.show("Lấy dữ liệu thất bại", ToastAndroid.SHORT);
@@ -120,7 +120,7 @@ const DetailReport = (props) => {
                                 onChangeText={text => setReason(text)}
                                 placeholder="Viết lý do"
                             />
-                            <TouchableOpacity style={styles.button}>
+                            <TouchableOpacity style={styles.button}onPress={handleOutsideClick}>
                                 <Text style={styles.buttonText}>Gửi</Text>
                             </TouchableOpacity>
                         </View>
